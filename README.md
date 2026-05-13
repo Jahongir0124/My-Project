@@ -1,1 +1,10 @@
-"# LMS Project" 
+# LMS System
+
+## Features
+- Role-based access
+- Attendance system
+- Filtering & pagination
+
+## Stack
+- Laravel
+- MySQL
