@@ -7,13 +7,25 @@ use App\Repositories\CourseRepository;
 
 class CourseService
 {
-    public function __construct(protected readonly CourseRepository $courserepostirory){}
+    public function __construct(protected readonly CourseRepository $courseRepostirory){}
     
 
 
 
     public function all()
     {
-        return $this->courserepostirory->all();
+        return $this->courseRepostirory->all();
+    }
+
+
+    public function create(array $data)
+    {
+        return $this->courseRepostirory->create($data);
+    }
+
+
+    public function filter($data)
+    {
+        return $this->courseRepostirory->filter($data);
     }
 }

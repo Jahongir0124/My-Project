@@ -14,24 +14,42 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
-       
-      <form action="{{ route('admin.departament.create') }}" method="POST">
-        @csrf
+    {{-- Modal Departament Create --}}
+      <form action="" method="POST">
+              @csrf
 
-        <div class="modal-body">
+              <div class="modal-body">
 
-          <div class="mb-3">
-            <label>Fakultet nomini kiriting nomi</label>
-            <input type="text" name="name" class="form-control">
-          </div>
+                  <div class="mb-3">
+                      <label>Fakultet nomini kiriting nomi</label>
+                      <input id="faculity_name" type="text" name="name" class="form-control" id="facultyName">
+                  </div>
 
-        </div>
+                  <span class="course_name"></span>
 
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
-        </div>
+                  <div class="mb-3">
+                      <label>Fakultetga kurs qo'shish</label>
 
-      </form>
+                      <div class="d-flex gap-2">
+                          <input type="text" class="form-control" id="courseInput">
+                          <span id class="btn btn-primary" onclick="addCourse()">+</span>
+                      </div>
+                  </div>
+
+                  <!-- course list chiqadigan joy -->
+                  <div id="courseList" class="mb-2"></div>
+
+                  <!-- backendga yuboriladigan hidden input -->
+                  <input type="hidden" name="courses" id="coursesData">
+
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" onclick="submitForm()" class="btn btn-primary">Saqlash</button>
+              </div>
+
+</form>
+{{-- End Modal --}}
 
     </div>
   </div>
@@ -119,33 +137,6 @@
                     <!--begin::Form-->
                    
                     <!--end::Form-->
-                    <!--begin::JavaScript-->
-                    {{-- <script>
-                        // Example starter JavaScript for disabling form submissions if there are invalid fields
-                        (() => {
-                        'use strict';
-
-                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                        const forms = document.querySelectorAll('.needs-validation');
-
-                        // Loop over them and prevent submission
-                        Array.from(forms).forEach((form) => {
-                            form.addEventListener(
-                            'submit',
-                            (event) => {
-                                if (!form.checkValidity()) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                                }
-
-                                form.classList.add('was-validated');
-                            },
-                            false,
-                            );
-                        });
-                        })();
-                    </script> --}}
-                    <!--end::JavaScript-->
                     </div>
                 </div>
 
@@ -188,6 +179,7 @@
                           <th style="width: 25%" class="text-center">Fakultet nomi</th>
                           <th style="width: 20%" class="text-center">Jami o'qituvchilar</th>
                           <th style="width: 20%" class="text-center">Guruhlar soni</th>
+                          <th style="width: 20%" class="text-center">Talabalar soni</th>
                           <th style="width: 20%" class="text-center">Tahrirlash</th>
                           <th style="width: 20%" class="text-center">O'chirish</th>
                         </tr>
@@ -200,13 +192,14 @@
                           <td class="text-center">{{ $departament->name}}</td>
                           <td class="text-center">{{ $departament->teachers->count()}}</td>
                           <td class="text-center">{{ $departament->groups->count()}}</td>
+                          <td class="text-center">{{ $departament->students->count()}}</td>
                           
                           <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal"  class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
+                            <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $departament->id }}" data-name="{{ $departament->name }}" data-bs-target="#updateGroupModal"   class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
                           <td class="text-center">
-                            <form action="#" method='POST' 
-                              onsubmit="return confirm(' - o\'chirilsinmi?')">
+                            <form action="{{ route('admin.departament.destroy', ['id' => $departament->id]) }}" method='POST' 
+                              onsubmit="return confirm('{{ $departament->name }} - o\'chirilsinmi?')">
                               @csrf
                               <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
                             </form>
@@ -241,7 +234,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Guruh tahrirlash</h5>
+        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -252,9 +245,9 @@
         <div class="modal-body">
 
           <div class="mb-3">
-            <label>Guruh nomi</label>
-            <input id="group_id" type="hidden" name="id">
-            <input id="group_number" type="text" name="group_number"  class="form-control">
+            <label>Fakultet nomi</label>
+            <input id="departament_id" type="hidden" name="id">
+            <input id="departament_name" type="text" name="name"  class="form-control">
           </div>
 
         </div>
@@ -268,7 +261,7 @@
     </div>
   </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 
 
@@ -277,14 +270,92 @@ document.querySelectorAll('#editGroupBtn').forEach(button => {
 
         
         let id = this.dataset.id;
-        let name = this.dataset.group; 
-        console.log("Guruh nomi:", name);
-        document.getElementById('group_id').value = id;
-        document.getElementById('group_number').value = name;
+        let name = this.dataset.name; 
+        document.getElementById('departament_id').value = id;
+        document.getElementById('departament_name').value = name;
         
-        document.querySelector('#update_form').action = `/admin/group-update/${id}`;
+        document.querySelector('#update_form').action = `/admin/departament/update/${id}`;
         $('#updateGroupModal').modal('show');
     });
 });
 </script>
+<script>
+  let courses = [];
+  function addCourse() {
+    let input = document.getElementById('courseInput');
+    let value = input.value.trim();
+
+    if (value === '') return;
+
+    courses.push(value);
+
+    input.value = '';
+
+    renderCourses();
+    syncToHiddenInput();
+    
+    }
+
+  function renderCourses() {
+    let container = document.getElementById('courseList');
+
+    container.innerHTML = '';
+
+    courses.forEach((course, index) => {
+        container.innerHTML += `
+            <div class="d-flex justify-content-between border p-1 mb-1">
+                <span>${course}</span>
+                <button type="button" class="btn btn-sm btn-danger" onclick="removeCourse(${index})">x</button>
+            </div>
+        `;
+    });
+}
+
+function removeCourse(index) {
+    courses.splice(index, 1);
+    renderCourses();
+    syncToHiddenInput();
+}
+
+function syncToHiddenInput() {
+    document.getElementById('coursesData').value = JSON.stringify(courses);
+}
+
+function submitForm()
+{
+  let name = document.getElementById('faculity_name').value;
+  console.log(courses);
+  if (name){
+
+      axios.post('/admin/departament/create', {
+            
+            name: name,
+            courses: courses
+        }
+      )
+      .then(response => {
+    
+          console.log(response.data);
+    
+          courses = [];
+          document.getElementById('faculity_name').value = '';
+          renderCourses();
+          alert("Muvafiqiyatli saqlandi")
+    
+      })
+      .catch(error => {
+        alert(error)
+      })
+
+  window.location.reload();
+  }
+
+  else {
+    alert("Fakultet nomi kiritilmagan!");
+  }
+}
+
+
+
+  </script>
 @endsection

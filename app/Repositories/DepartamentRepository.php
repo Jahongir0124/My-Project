@@ -15,11 +15,15 @@ class DepartamentRepository
         return Departament::latest()->get();
     }
 
-    public function create(array $data)
+    public function create(string $name)
     {   
         
-        return Departament::create($data);
+        return Departament::create([
+            "name" => $name
+        ]);
     }
+
+    
 
     public function getByFilter($data)
     {
@@ -40,5 +44,23 @@ class DepartamentRepository
             }
 
         return $query->get();
+    }
+
+
+    public function update(array $data)
+    {
+
+        $departament = Departament::findOrFail($data['id']);
+        $departament->update([
+            "name" => $data['name']
+        ]);
+        return $departament->fresh();
+    }
+
+
+    public function destroy(int $id)
+    {
+        $departament = Departament::findOrFail($id);
+        return $departament->delete();
     }
 }

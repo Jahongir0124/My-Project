@@ -30,4 +30,9 @@ class GroupService
     {
         return $this->groupRepesitory->update($data);
     }
+
+    public function getByFilter($data)
+    {
+        return $this->groupRepesitory->getByFilter($data);
+    }
 }

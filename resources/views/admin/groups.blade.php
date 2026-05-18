@@ -23,7 +23,7 @@
                   <div class="card-body">
 
 
-                     <form action="{{ route('admin.departament.filter') }}" method="GET" class="needs-validation" novalidate>
+                     <form action="{{ route('admin.group.filter') }}" method="GET" class="needs-validation" novalidate>
                         <!--begin::Body-->
                         @csrf
                         <div class="card-body">
@@ -53,16 +53,7 @@
                             </select>
                             <div class="invalid-feedback">Iltimos kerakli fakultet tanlang</div>
                             </div>
-                            <div class="col-md-6">
-                            <label for="validationCustom04" class="form-label">Semestr bo'yicha</label>
-                            <select name="departament_id" class="form-select" id="validationCustom04" required>
-                              <option selected disabled value="">Tanlang...</option>
-                              @foreach ($semestrs as $semestr) 
-                                <option value="{{ $semestr->id }}">{{ $semestr->name }}</option>
-                              @endforeach
-                            </select>
-                            <div class="invalid-feedback">Iltimos kerakli fakultet tanlang</div>
-                            </div>
+                          
                             <div class="col-md-6">
                             <label class="form-label">Yaratilgan vaqti</label>
                             <select name="created_at" class="form-select" id="validationCustom04" required>
@@ -146,8 +137,8 @@
                             <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id={{ $group->id }} data-group={{ $group->name }} class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
                           <td class="text-center">
-                            <form action="{{ route('admin.group.destroy', ['id' => $group->id]) }}" method='POST' 
-                              onsubmit="return confirm('{{ $group->name }} - o\'chirilsinmi?')">
+                            <form action="{{ route('admin.departament.destroy', ['id' => $departament->id]) }}" method='POST' 
+                              onsubmit="return confirm('{{ $departament->name }} - o\'chirilsinmi?')">
                               @csrf
                               <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
                             </form>

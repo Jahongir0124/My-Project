@@ -20,4 +20,17 @@ class Departament extends Model
     {
         return $this->hasMany(Teacher::class);
     }
+
+    public function courses(): HasMany
+    {
+        return $this->hasMany(Course::class);
+    }
+
+    public function students()
+    {
+        return $this->hasManyThrough(
+            Student::class,
+            Group::class
+        );
+    }
 }

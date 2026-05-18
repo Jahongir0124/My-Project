@@ -14,7 +14,7 @@ class GroupRequest extends FormRequest
             return [
                 "name" => "required",
                 "departament_id" => 'required|exists:departaments,id',
-                "semester_id" => "required|exists:semesters,id"
+                "student_count" => "nullable|integer|min:0"
 
             ];
         }

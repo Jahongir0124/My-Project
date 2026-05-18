@@ -41,5 +41,43 @@ class GroupRepository
         return $group;
     }
 
+
+    public function getByFilter($data)
+    {
+        $query = Group::query();
+
+        if ($data->name){
+
+            $query->where('name', 'like', '%' . $data->name . '%');
+        }
+
+        if ($data->departament_id)
+            {
+                $query->where('departament_id', $data->departament_id);
+            }
+
+        if ($data->semester_id)
+            {
+                $query->where('semester_id', $data->semester_id);
+            }
+
+        if ($data->created_at)
+            {
+                if ($data->created_at == 'latest')
+                    {
+                        $query->orderBy('created_at', 'desc');
+                    }
+
+                else 
+                    {
+                        $query->orderBy('created_at', 'asc');
+                    }
+            }
+
+        return $query->paginate(10);
+
+        
+    }
+
     
 }

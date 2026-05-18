@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Course\CourseRequest;
 use Illuminate\Http\Request;
 use App\Services\DepartamentService;
 use App\Http\Requests\Admin\Departament\DepartamentRequest;
+use App\Http\Requests\Admin\Departament\DepartamentUpdateRequest;
+
+
 
 class DepartamentController extends Controller
 {
@@ -24,9 +28,17 @@ class DepartamentController extends Controller
 
     public function create(DepartamentRequest $request)
     {   
-       
-        $this->departamentService->create($request->validated());
-        return redirect()->back()->with('succes', 'Departament created!');
+        
+        $data = $request->validate([
+            
+            "name" => "required|string|max:255",
+            "courses" => "nullable|array"
+        ]);
+        
+        $this->departamentService->create($data);
+        return response()->json([
+        'message' => 'Created successfully'
+            ]);
     }
 
 
@@ -40,4 +52,20 @@ class DepartamentController extends Controller
         ]);
 
     }
+
+    public function update(DepartamentUpdateRequest $request)
+    {
+
+        $this->departamentService->update($request->validated());
+        return redirect()->back()->with('succses', 'Updated Succesfull');
+
+    }
+
+
+    public function destroy(int $id)
+    {
+        $this->departamentService->destroy($id);
+        return redirect()->back()->with('succses', 'Deleted Succesfully');
+    }
+   
 }

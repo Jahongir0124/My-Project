@@ -10,7 +10,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Guruh qo'shish</h5>
+        <h5 class="modal-title">Kurs qo'shish</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -42,14 +42,86 @@
  
   <div class="app-content-header">
           <!--begin::Container-->
+           <div class="card card-outline card-primary collapsed-card">
+                  <div class="card-header">
+                    <h3 class="card-title">Filtr</h3>
+
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse">
+                        <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
+                        <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
+                      </button>
+                    </div>
+                    <!-- /.card-tools -->
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+
+
+                     <form action="{{ route("admin.course.filter") }}" method="GET" class="needs-validation" novalidate>
+                        <!--begin::Body-->
+                        @csrf
+                        <div class="card-body">
+                        <!--begin::Row-->
+                        <div class="row g-5">
+                            <!--begin::Col-->
+                            <div class="col-md-6">
+                            <label for="validationCustom01" class="form-label">Kurs nomi</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="validationCustom01"
+                                placeholder="Kurs nomi"
+                                name="name"
+                                required
+                            />
+                            <div class="valid-feedback">Juda yaxshi</div>
+                            </div>
+                          
+                            <div class="col-md-6">
+                            <label for="validationCustom04" class="form-label">Fakultet bo'yicha</label>
+                            <select name="departament_id" class="form-select" id="validationCustom04" required>
+                              <option selected disabled value="">Tanlang...</option>
+                              @foreach ($departaments as $departament) 
+                                <option value="{{ $departament->id }}">{{ $departament->name }}</option>
+                              @endforeach
+                            </select>
+                            <div class="invalid-feedback">Iltimos kerakli fakultet tanlang</div>
+                            </div>
+                          
+                            <div class="col-md-6">
+                            <label class="form-label">Yaratilgan vaqti</label>
+                            <select name="created_at" class="form-select" id="validationCustom04" required>
+                                <option selected disabled value="">Tanlang...</option>
+                              
+                                    <option value="latest">Yangilar</option>
+                                    <option value="oldest">Oldin yaratilganlar</option>
+
+
+                            </select>
+                            <div class="invalid-feedback">Iltimos kerakli fakultet tanlang</div>
+                            </div>
+  
+                        </div>
+                        <!--end::Row-->
+                        </div>
+                        <!--end::Body-->
+                        <!--begin::Footer-->
+                        <button class="btn btn-primary float-end" type="submit">Qidirish</button>
+                       
+                        <!--end::Footer-->
+                    </form>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-                <h3 class="mb-0">Kurslar ro'yhati</h3>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
+                
+                <a class="btn btn-primary" href="{{ route('admin.course.create') }}">
                     Yangi Kurs qo'shish +
-                </button>
+                </a>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
@@ -77,12 +149,12 @@
                         
                       <thead>
                         <tr>
-                          <th style="width: 40px"> #</th>
-                          <th style="width: 30%" class="text-center">Kurs nomi</th>
-                          <th style="width: 25%" class="text-center">Guruhi</th>
-                          <th style="width: 25%" class="text-center">O'qituvchi</th>
-                          <th style="width: 10%" class="text-center">Tahrirlash</th>
-                          <th style="width: 10%" class="text-center">O'chirish</th>
+                          <th class="text-center"> #</th>
+                          <th class="text-center">Kurs nomi</th>
+                          <th class="text-center">Fakultet</th>
+                          <th class="text-center">Status</th>
+                          <th class="text-center">Tahrirlash</th>
+                          <th class="text-center">O'chirish</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -90,12 +162,12 @@
                             
                         <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
-                          <td class="text-center">{{ $course->name }}</td>
-                          <td class="text-center">{{ $course->group->group_number}}</td>
-                          <td class="text-center">{{ $course->teacher->first_name}}</td>
+                          <td class="text-center">{{ $course->name ?? 'kiritilmagan' }}</td>
+                          <td class="text-center">{{ $course->departament->name ?? 'kiritilmagan' }}</td>
+                          <td class="text-center">{{ $course->active ? 'active' : 'no active'}}</td>
                           
                           <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id={{ $group->id }} data-group={{ $group->group_number }} class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
+                            <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal" class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
                           <td class="text-center">
                             <form action="#" method='POST' 
@@ -111,7 +183,9 @@
                     </table>
                   </div>
                   <!-- /.card-body -->
-                  
+                  <div class="card-footer clearfix">
+                    {{ $courses->links() }}
+                  </div>
                  
                 </div>
                 <!-- /.card -->
@@ -134,7 +208,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Guruh tahrirlash</h5>
+        <h5 class="modal1-title">Kursni tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -144,6 +218,21 @@
         @method('PUT')
         <div class="modal-body">
 
+          <div class="mb-3">
+            <label>Kurs nomi</label>
+            <input id="course_id" type="hidden" name="id">
+            <input id="group_number" type="text" name="group_number"  class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Kurs bali</label>
+            <input id="group_id" type="hidden" name="id">
+            <input id="group_number" type="text" name="group_number"  class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Guruh nomi</label>
+            <input id="group_id" type="hidden" name="id">
+            <input id="group_number" type="text" name="group_number"  class="form-control">
+          </div>
           <div class="mb-3">
             <label>Guruh nomi</label>
             <input id="group_id" type="hidden" name="id">

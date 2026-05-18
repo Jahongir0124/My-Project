@@ -42,12 +42,8 @@ class GroupController extends Controller
         public function store(GroupRequest $request)
         {   
             
-
-            
             $this->groupService->create($request->validated());
-            return redirect()->route('admin.group.index');
-
-            
+            return redirect()->route('admin.group.index'); 
         }
 
         public function destroy(Request $request)
@@ -66,6 +62,16 @@ class GroupController extends Controller
             $this->groupService->update($request->validated());
             return redirect()->back();
 
+        }
+        public function filter(Request $request)
+        {
+           
+
+            return view('admin.groups', [
+                'groups' =>  $this->groupService->getByFilter($request),
+                'departaments' => $this->departamentService->all(),
+                'semestrs' => $this->semestrService->all()
+            ]);
         }
 
 }
