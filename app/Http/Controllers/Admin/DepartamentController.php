@@ -67,5 +67,10 @@ class DepartamentController extends Controller
         $this->departamentService->destroy($id);
         return redirect()->back()->with('succses', 'Deleted Succesfully');
     }
+
+    public function json()
+    {
+        return response()->json($this->departamentService->all());
+    }
    
 }

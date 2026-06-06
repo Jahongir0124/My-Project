@@ -43,4 +43,9 @@ class SemestrController extends Controller
     return redirect()->back()->with('succses', 'Deleted');
     
   }
+
+  public function json()
+  {
+    return response()->json($this->semesterService->all());
+  }
 }

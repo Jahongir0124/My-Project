@@ -104,13 +104,15 @@
                         
                       <thead>
                         <tr>
-                          <th style="width: 40px"> #</th>
-                          <th style="width: 25%" class="text-center">Semester nomi</th>
-                          <th style="width: 20%" class="text-center">Qatnashaydigan guruhlar soni</th>
-                          <th style="width: 20%" class="text-center">Faol vaqti</th>
+                          <th class="text-center"> #</th>
+                          <th class="text-center">Semester nomi</th>
 
-                          <th style="width: 20%" class="text-center">Tahrirlash</th>
-                          <th style="width: 20%" class="text-center">O'chirish</th>
+                          <th class="text-center">Faol vaqti</th>
+                          <th class="text-center">Description</th>
+
+
+                          <th class="text-center">Tahrirlash</th>
+                          <th class="text-center">O'chirish</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -119,8 +121,9 @@
                         <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
                           <td class="text-center">{{ $semester->name}}</td>
-                          <td class="text-center">{{ $semester->groups->count()}}</td>
+                         
                           <td class="text-center">{{ $semester->start_date->format('d.m.Y')}} - {{ $semester->end_date->format('d.m.Y')}}</td>
+                          <td class="text-center">Kiritilmagan</td>
                           <td class="text-center">
                             <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $semester->id }}" data-name="{{ $semester->name }}" data-start-date="{{ \Carbon\Carbon::parse($semester->start_date)->format('Y-m-d') }}" data-end-date="{{ \Carbon\Carbon::parse($semester->end_date)->format('Y-m-d') }}" data-bs-target="#updateGroupModal"   class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  

@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Course\CourseRequest;
+use App\Http\Requests\Admin\Course\CourseUpdateRequest;
 use Illuminate\Http\Request;
 use App\Services\CourseService;
 use App\Services\DepartamentService;
 use App\Services\GroupService;
-
 use App\Services\SemesterService;
 use App\Services\TeacherService;
 
@@ -63,6 +63,22 @@ class CourseController extends Controller
             "courses" => $this->courseService->filter($request),
             "departaments" => $this->departamentService->all()
         ]);
+    }
+
+
+    public function update(CourseUpdateRequest $request)
+    {
+       
+        $this->courseService->update($request->validated());
+        return redirect()->back()->with('succes', 'Updated');
+    }
+
+
+
+    public function destroy(int $id)
+    {
+        $this->courseService->destroy($id);
+        return redirect()->back()->with('succsess', 'Deleted');
     }
     
 

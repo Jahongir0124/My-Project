@@ -24,7 +24,7 @@ class GroupController extends Controller
         public function index()
         {   
             return view('admin.groups', [
-                'groups' => $this->groupService->all(),
+                'groups' => $this->groupService->groups()->latest()->paginate(10),
                 'departaments' => $this->departamentService->all(),
                 'semestrs' => $this->semestrService->all()
             ]);
@@ -56,7 +56,7 @@ class GroupController extends Controller
         }
 
 
-        public function updateGroup(UpdateGroupRequest $request, Group $group)
+        public function update(UpdateGroupRequest $request)
         {
             
             $this->groupService->update($request->validated());
@@ -72,6 +72,11 @@ class GroupController extends Controller
                 'departaments' => $this->departamentService->all(),
                 'semestrs' => $this->semestrService->all()
             ]);
+        }
+
+        public function json()
+        {
+            return response()->json($this->groupService->groups()->get(['id', 'name']));
         }
 
 }

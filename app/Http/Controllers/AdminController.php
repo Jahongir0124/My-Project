@@ -23,7 +23,7 @@ class AdminController extends Controller
         {   
             
             return view('admin.dashboard', [
-                'groups' => $this->groupService->all(),
+                'groups' => $this->groupService->groups()->get(),
                 'courses' => $this->courService->all()
             ]);
         }

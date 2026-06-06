@@ -13,7 +13,8 @@ class UpdateGroupRequest extends FormRequest
         return [
 
             "id" => "required|int",
-            "group_number" => "required|string|max:255"
+            "name" => "required|string|max:255",
+            "student_count" => "required|integer"
 
         ];
     }

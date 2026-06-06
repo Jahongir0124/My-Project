@@ -66,5 +66,25 @@ class CourseRepository
  
         return $course->paginate(10);
     }
+
+
+    public function update(int $id, array $data)
+    {
+        $course = Course::findOrFail($id);
+        $course->update($data);
+        return $course;
+    }
+
+
+    public function destroy(int $id)
+    {
+        
+        return Course::findOrFail($id)->delete();
+    }
+
+    public function getCourseByDepartament($departament)
+    {
+        return Course::where('departament_id', $departament)->get();
+    }
 }
 

@@ -39,4 +39,10 @@ class SemesterRepository
         return $semesnter->delete();
         
     }
+
+
+    public function getSemesterById($id)
+    {
+        return Semester::findOrFail($id);
+    }
 }

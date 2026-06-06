@@ -9,9 +9,9 @@ use Exception;
 
 class GroupRepository
 {
-    public function all()
+    public function groups()
     {
-        return Group::latest()->paginate(5);
+        return Group::query();
     }
 
     public function findById(int $id)
@@ -32,13 +32,11 @@ class GroupRepository
         return $group->delete();
     }
 
-    public function update(array $data)
-    {
-        
-        $group = Group::findOrFail($data['id']);
-        $group->group_number = $data['group_number'];
-        $group->save();
-        return $group;
+    public function update(int $id, array $data)
+    {    
+        $group = Group::findOrFail($id);
+        $group->update($data);
+        return $group->fresh();
     }
 
 
@@ -77,6 +75,19 @@ class GroupRepository
         return $query->paginate(10);
 
         
+    }
+
+
+    public function getIdByName(string $name)
+    {
+        
+        return Group::where('name', $name)->first()->id;
+          
+    }
+
+    public function getGroupById(int $id)
+    {
+        return Group::findOrFail($id);
     }
 
     

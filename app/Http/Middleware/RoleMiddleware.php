@@ -14,18 +14,18 @@ class RoleMiddleware
      * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next, $role): Response
-    {
-        if (!auth()->check()){
+        {
+            if (!auth()->check()){
 
-            return redirect('/login');
+                return redirect('/login');
 
         }
         if (auth()->user()->role !== $role) {
             
                 return match (auth()->user()->role) {
                         'admin' => redirect('/admin/dashboard'),
-                        'student' => redirect('/'),
-                        'teacher' => redirect('/teacher/dashboard'),
+                        'student' => redirect('/student'),
+                        'teacher' => redirect('/teacher'),
                         default => redirect('/login'),
                 };
         }

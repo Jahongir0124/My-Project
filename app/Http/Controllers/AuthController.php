@@ -41,8 +41,8 @@ class AuthController extends Controller
         return match ($user->role) {
             
             'admin' => redirect('admin/dashboard'),
-            'teacher' => redirect('teacher/dashboard'),
-             'student' => redirect('/dashboard')
+            'teacher' => redirect('/teacher'),
+             'student' => redirect('/student')
         };
 
     }
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
             $request->session()->regenerateToken();
 
-            return redirect('login');
+            return redirect('/');
         }
 
 }

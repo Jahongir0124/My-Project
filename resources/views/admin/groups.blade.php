@@ -86,10 +86,8 @@
             <div class="row">
               <div class="col-sm-6">
                 
-                <a href="{{ route('admin.groups.create') }}"> Guruh qo'shish +</a>
-                {{-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
-                    Guruh qo'shish + 
-                </button> --}}
+                <a class="btn btn-primary" href="{{ route('admin.groups.create') }}"> Guruh qo'shish +</a>
+              
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
@@ -134,11 +132,11 @@
                           <td class="text-center">{{ $group->departament->name}}</td>
                           <td class="text-center">{{ $group->students->count()}}</td>
                           <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id={{ $group->id }} data-group={{ $group->name }} class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
+                            <button id="editGroupBtn" data-target="#" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id="{{ $group->id }}" data-group="{{ $group->name }}" data-count="{{ $group->student_count }}" class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
                           <td class="text-center">
-                            <form action="{{ route('admin.departament.destroy', ['id' => $departament->id]) }}" method='POST' 
-                              onsubmit="return confirm('{{ $departament->name }} - o\'chirilsinmi?')">
+                            <form action="{{ route('admin.group.destroy', ['id' => $group->id]) }}" method='POST' 
+                              onsubmit="return confirm('{{ $group->name }} - o\'chirilsinmi?')">
                               @csrf
                               <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
                             </form>
@@ -150,7 +148,9 @@
                     </table>
                   </div>
                   <!-- /.card-body -->
-                  
+                  <div class="card-footer clearfix">
+                    {{ $groups->links() }}
+                  </div>
                  
                 </div>
                 <!-- /.card -->
@@ -166,7 +166,45 @@
           </div>
           <!--end::Container-->
         </div>
-        {{ $groups->links() }}
+        
+
+      <div class="modal fade" id="updateGroupModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      
+       
+      <form action="{{ route('admin.group.update') }}" id="update_form" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label>Guruh nomi</label>
+            <input id="group_id" type="hidden" name="id">
+            <input id="group_name" type="text" name="name"  class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Talabalar soni</label>
+            
+            <input id="student_count" type="number" min=0 name="student_count"  class="form-control">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
 
 <script>
 document.querySelectorAll('#editGroupBtn').forEach(button => {
@@ -174,15 +212,19 @@ document.querySelectorAll('#editGroupBtn').forEach(button => {
 
         
         let id = this.dataset.id;
-        let name = this.dataset.group; 
-        console.log("Guruh nomi:", name);
-        document.getElementById('group_id').value = id;
-        document.getElementById('group_number').value = name;
+        let name = this.dataset.group;
+        let count = this.dataset.count; 
         
-        document.querySelector('#update_form').action = `/admin/group-update/${id}`;
-        $('#updateGroupModal').modal('show');
+        document.getElementById('group_id').value = id;
+        document.getElementById('group_name').value = name;
+        document.getElementById('student_count').value = count;
+        
+       
     });
 });
 </script>
+
+
+
 @endsection
 

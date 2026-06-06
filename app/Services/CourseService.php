@@ -28,4 +28,24 @@ class CourseService
     {
         return $this->courseRepostirory->filter($data);
     }
+
+    public function update(array $data)
+    {   
+        $id = $data['id'];
+        unset($data['id']);
+        return $this->courseRepostirory->update($id, $data);
+    }
+
+
+
+    public function destroy(int $id)
+    {
+        $this->courseRepostirory->destroy($id);
+    }
+
+
+    public function getCourseByDepartament($departament)
+    {
+        return $this->courseRepostirory->getCourseByDepartament($departament);
+    }
 }

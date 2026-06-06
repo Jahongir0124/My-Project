@@ -11,9 +11,9 @@ class GroupService
     
 
 
-    public function all()
+    public function groups()
     {
-        return $this->groupRepesitory->all();
+        return $this->groupRepesitory->groups();
     }
 
     public function create(array $data)
@@ -27,12 +27,19 @@ class GroupService
     }
 
     public function update(array $data)
-    {
-        return $this->groupRepesitory->update($data);
+    {   
+        $id = $data['id'];
+        unset($data['id']);
+        return $this->groupRepesitory->update($id, $data);
     }
 
     public function getByFilter($data)
     {
         return $this->groupRepesitory->getByFilter($data);
+    }
+
+    public function getGroupById(int $id)
+    {
+        return $this->groupRepesitory->getGroupById($id);
     }
 }

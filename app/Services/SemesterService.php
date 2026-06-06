@@ -31,4 +31,12 @@ class SemesterService
     {
         return $this->semestrRepository->destroy($id);
     }
+
+
+    public function getSemesterById($id)
+    {
+        return $this->semestrRepository->getSemesterById($id);
+    }
+
+    
 }

@@ -255,26 +255,26 @@
               </li>
               
                <li class="nav-item">
-                <a href="{{ route('admin.courses.index') }}" class="nav-link {{ request()->routeIs('admin.course.index') ? 'active': ''}}">
+                <a href="{{ route('admin.courses.index') }}" class="nav-link {{ request()->routeIs('admin.courses.index') ? 'active': ''}}">
                   <i class="nav-icon bi bi-clipboard"></i>
                   <p>Kurslar</p>
                 </a>
               </li>
               
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.teacher.index') }}" class="nav-link {{ request()->routeIs('admin.teacher.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-person"></i>
                   <p>O'qituvchilar</p>
                 </a>
                  </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.student.index') }}" class="nav-link {{ request()->routeIs('admin.student.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-person"></i>
                   <p>Talabalar</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.schedule.index') }}" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
                   <i class="nav-icon bi bi-table"></i>
                   <p>Dars jadvali qo'shish</p>
                 </a>
