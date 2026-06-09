@@ -51,5 +51,10 @@ class ScheduleRepository
         return $schedule->delete();
     }
 
+    public function findById(int $id)
+    {
+        return Schedule::findOrFail($id);
+    }
+
     
 }

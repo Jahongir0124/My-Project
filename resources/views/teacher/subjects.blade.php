@@ -4,16 +4,8 @@
 @section('title', 'Fanlar')
 @section('content')
 
-
-
-
-
-
- 
   <div class="app-content-header">
           <!--begin::Container-->
-        
-          
           <div class="container-fluid">
             <div class="row g-4">
     <div class="card card-info card-outline mb-4">
@@ -43,7 +35,6 @@
    
       
       <select id="semester" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-       
        
             </select>
           <!--begin::Container-->
@@ -75,43 +66,31 @@
                           <td class="text-center">{{ $loop->index + 1}}</td>
                           <td class="text-center">{{ $schedule->course->name}}</td>
                           <td class="text-center">{{ $schedule->group->name}}</td>
-                          <td class="text-center"><a class="btn btn-primary mb-2 " >{{ $schedule->tasks->count()}}</a></td>
+                          <td class="text-center"><a href="{{ route('teacher.subject.tasks', ['schedule' => $schedule]) }}" class="btn btn-primary mb-2 " >{{ $schedule->tasks->count()}}</a></td>
                           <td class="text-center">{{ $schedule->day}}/{{$schedule->start_time}}-{{$schedule->end_time}}</td>
                           <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $schedule->id}}"  data-bs-target="#updateGroupModal"   class="btn btn-primary mb-2"><i class="bi bi-plus-lg"></i></button>
-                            </td>  
-                            
-                                   
-                        </tr>
+                            <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $schedule->id}}"  data-bs-target="#createTask"   class="btn btn-primary mb-2"><i class="bi bi-plus-lg"></i></button>
+                            </td>                   
+                          </tr>
                         @endforeach
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.card-body -->
-                  
-                 
                 </div>
-                <!-- /.card -->
-
-          
-                <!-- /.card -->
               </div>
-              <!-- /.col -->
-             
-              <!-- /.col -->
             </div>
             <!--end::Row-->
           </div>
           <!--end::Container-->
         </div>
         
-<div class="modal fade" id="updateGroupModal" tabindex="-1">
+<div class="modal fade" id="createTask" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
         <h5 class="modal1-title">Vazifa qo'shish</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <button id="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
        
@@ -132,6 +111,11 @@
             <label>Ball</label>
             <input  type="number" min="0" name="score"  class="form-control">
           </div>
+          @error('score')
+            <div id="errors" class="text-danger">
+              {{ $message }}
+            </div>
+          @enderror
            <div class="mb-3">
             <label>Fayli</label>
             <input  type="file" name="file" class="form-control">
@@ -149,13 +133,23 @@
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
+@if ($errors->any())
 
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+            const modal = new bootstrap.Modal(
+                document.getElementById('createTask')
+            );
+            modal.show();
+        });
+  </script>
+  
+@endif
+<script>
 
   document.querySelectorAll('#editGroupBtn').forEach(button => {
       button.addEventListener('click', function () {
 
-          
           let id = this.dataset.id;
           console.log(id);
           document.getElementById('scheduleId').value = id;

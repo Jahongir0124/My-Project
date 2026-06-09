@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\SemestrController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\StudentManagamentController;
 use App\Http\Controllers\Admin\TeacherManagementController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\TaskAnswerController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
 
@@ -72,6 +74,9 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('subjects/{semester_id?}', [StudentController::class, 'subjects'])->name('subjects');
     Route::get('subject/select', [StudentController::class, 'subjectSelect'])->name('subject.select');
     Route::get('subject/detail/{id}', [StudentController::class, 'subjectDetail'])->name('subject.detail');
+    Route::post('task/answer/create', [TaskAnswerController::class, 'store'])->name('taskAnswer.store');
+    Route::put('task/answer/update', [TaskAnswerController::class, 'update'])->name('taskAnswer.update');
+
 });
 
 
@@ -82,4 +87,8 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('/', [TeacherController::class, 'index'])->name('index');
     Route::get('subjects/', [TeacherController::class, 'subjects'])->name('subjects');
     Route::post('task/create', [TaskController::class, 'store'])->name('task.store');
+    Route::get('subject/tasks/{schedule}', [TaskController::class, 'tasksBySubject'])->name('subject.tasks');
+    Route::put('task/update', [TaskController::class, 'update'])->name('task.update');
+    Route::post('task/delete/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
+    Route::get('task/rating/{task}', [RatingController::class, 'ratingTask'])->name('task.rating');
 });

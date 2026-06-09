@@ -20,4 +20,9 @@ class Student extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function task_answer()
+    {
+        return $this->hasOne(TaskAnswer::class);
+    }
 }

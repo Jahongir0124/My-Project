@@ -40,7 +40,6 @@ class SemesterRepository
         
     }
 
-
     public function getSemesterById($id)
     {
         return Semester::findOrFail($id);

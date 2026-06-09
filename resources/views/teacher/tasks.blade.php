@@ -1,11 +1,9 @@
-@extends('layouts.student-layout')
-
+@extends('layouts.teacher-layout')
 @section('title', 'Vazifalar')
 
-
 @section('content')
-   
-<div class="modal fade" id="createTaskAnswer" tabindex="-1">
+
+<div class="modal fade" id="createTask" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -13,22 +11,31 @@
         <h5 class="modal1-title">Vazifa qo'shish</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      
-       
-      <form action="{{ route('student.taskAnswer.store') }}" id="update_form" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('teacher.task.store') }}" id="update_form" method="POST" enctype="multipart/form-data">
         @csrf
       
         <div class="modal-body">
-            <input id="taskId" type="hidden" name="task_id">
-       
+            <input id="scheduleId" type="hidden" name="schedule_id" value="{{ $schedule }}">
+          <div class="mb-3">
+            <label>Vazifa nomi</label>
+            <input  type="text" name="name"  class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Topshirish muddati</label>
+            <input  type="date" name="deadline"  class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Ball</label>
+            <input  type="number" min="0" name="score"  class="form-control">
+          </div>
+           @error('score')
+            <div class="text-danger">
+                {{ $message }}
+            </div>
+          @enderror
            <div class="mb-3">
-            <label>
-              <br>
-              <small>
-              Izoh!Bu yerda docx, zip, rar, pptx, xslx formatidagi va hajmi 10mB oshmaydigan faylni yuklash mumkin
-            
-            </small></label>
-            <input  type="file" name="file_answer" class="form-control" required>
+            <label>Fayli</label>
+            <input  type="file" name="file" class="form-control">
           </div>
 
         </div>
@@ -43,30 +50,35 @@
   </div>
 </div>
 
-
-<div class="modal fade" id="updateTaskAnswer" tabindex="-1">
+<div class="modal fade" id="updateTask" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Vazifa Qayta yuklash</h5>
+        <h5 class="modal1-title">Vazifani tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      
-       
-      <form action="{{ route('student.taskAnswer.update') }}" id="update_form" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('teacher.task.update') }}" id="update_form" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input id="taskAnswerId" type="hidden" name="id">
         <div class="modal-body">
+            <input id="taskId" type="hidden" name="id" value="">
+          <div class="mb-3">
+            <label>Vazifa nomi</label>
+            <input id="taskName"  type="text" name="name"  class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Topshirish muddati</label>
+            <input id="deadline"  type="date" name="deadline"  class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Ball</label>
+            <input id="score"  type="number" min="0" name="score"  class="form-control">
+          </div>
+         
            <div class="mb-3">
-            <label>
-              <br>
-              <small>
-              Izoh!Bu yerda docx, zip, rar, pptx, xslx formatidagi va hajmi 10mB oshmaydigan faylni yuklash mumkin
-            
-            </small></label>
-            <input  type="file" name="file_answer" class="form-control" required>
+            <label>Fayli</label>
+            <input  type="file" name="file" class="form-control">
           </div>
 
         </div>
@@ -82,21 +94,29 @@
 </div>
 
 
-    <div class="app-content-header">
+
+ 
+  <div class="app-content-header">
           <!--begin::Container-->
-        
           
+        
           <div class="container-fluid">
             <div class="row g-4">
     <div class="card card-info card-outline mb-4">
-          
                     </div>
                 </div>
 
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-            
+               
+               
+                <button  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTask">
+                    Vazifa qo'shish
+                </button>
+                <a href="{{ route('teacher.subjects') }}"  class="btn btn-outline-secondary" >
+                    Orqaga
+                </a>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
@@ -112,8 +132,7 @@
         <!--end::App Content Header-->
         <!--begin::App Content-->
  <div class="app-content">
-   
-     
+          <!--begin::Container-->
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
@@ -121,63 +140,51 @@
                 <div class="card mb-4"> 
                   <!-- /.card-header -->
                   <div class="card-body">
-
-                     <table  class="table ">
-                            <thead >        
-                                <tr class="text-center">
-                                
-                                        <td style="border: 1px solid rgb(139, 132, 132)">To'plangan ball</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">Ko'rsatkich</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">Maks ball</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">O'zlashtirish</td>
-                                </tr>
-                                <tr class="text-center">
-                                
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1%</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
-                            </tr> 
-                            </thead>
-                     </table>
-                     <br>
-                     <br>
-                   
-                      <table class="table table-bordered">
+                    <table class="table table-bordered">
                         
                       <thead>
                         <tr>
-                          <th class="text-center"> #</th>
-                          <th class="text-center">Nomi</th>
-                          <th class="text-center">Fayli</th>
-                          <th class="text-center">Topshirish muddati</th>
-                          <th class="text-center">Ball</th>
-                          <th class="text-center">Vazifa yuklash</th>
-                  
+                          <th style="width: 40px"> #</th>
+                          <th style="width: 25%" class="text-center">Nomi</th>
+                          <th style="width: 20%" class="text-center">Topshirish muddati</th>
+                          <th style="width: 20%" class="text-center">Fayli</th>
+                          <th style="width: 20%" class="text-center">Ball</th>
+                          <th style="width: 20%" class="text-center">Baholash</th>
+                          <th style="width: 20%" class="text-center">Tahrirlash</th>
+                          <th style="width: 20%" class="text-center">O'chirish</th>
                         </tr>
                       </thead>
                       <tbody>
                         @foreach ($tasks as $task)
                             
-                          <tr class="align-middle">
+                        <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
                           <td class="text-center">{{ $task->name}}</td>
-                          @if ($task->file)
-                            <td class="text-center"><a class="btn btn-primary" href="{{ asset('storage/' . $task->file)}}" download>{{ $task->file_name}}</a></td>
-                          @else
-                            <td class="text-center">Fayl mavjud emas</td>
-                          @endif
                           <td class="text-center">{{ $task->deadline}}</td>
-                          <td class="text-center">0/{{ $task->score}}</td>                       
                           <td class="text-center">
-                            @if ($task->taskAnswer)
-                            <a class="btn btn-primary" href="{{ asset('storage/' . $task->taskAnswer->file_answer)}}" download>{{ $task->taskAnswer->file_name }}</a>
-                            <button id="updateTaskAnswerbtn" data-bs-toggle="modal" data-id="{{ $task->taskAnswer->id }}"  data-bs-target="#updateTaskAnswer" class="btn btn-primary mb-2"><i class="bi bi-repeat"></i></button>
-                            
+                            @if ($task->file)
+                              <a class="btn btn-primary mb-2" href="{{ asset('storage/' . $task->file) }}">
+                                {{ $task->file_name  }}</a>
                             @else
-                              <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $task->id }}"  data-bs-target="#createTaskAnswer"   class="btn btn-primary mb-2">+</button>
+                                Fayl mavjud emas
                             @endif
+                             </td>
+                          <td class="text-center">{{ $task->score}}</td>
+                          <td class="text-center"> <a class="btn btn-primary mb-2" href="{{ route('teacher.task.rating', ['task' => $task]) }}">
+                                +</a></td>
+                     
+                         
+                          
+                          <td class="text-center">
+                            <button id="edittaskBtn" data-bs-toggle="modal" data-id="{{ $task->id }}" data-name="{{ $task->name }}" data-deadline="{{ $task->deadline }}" data-score="{{ $task->score }}" data-bs-target="#updateTask"   class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
+                          <td class="text-center">
+                            <form action="{{ route('teacher.task.destroy', ['task' => $task]) }}" method='POST' 
+                              onsubmit="return confirm('{{ $task->name }} - o\'chirilsinmi?')">
+                              @csrf
+                              <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
+                            </form>
+                          </td> 
                                    
                         </tr>
                         @endforeach
@@ -208,68 +215,71 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Dars jadvalini tahrirlash</h5>
+        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
        
-      
+      <form action="{{ route('admin.teacher.update') }}" id="update_form" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label>Ismi</label>
+            <input id="teacher_id" type="hidden" name="id">
+            <input id="first_name" type="text" name="first_name"  class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Familiya</label>
+            <input id="last_name" type="text" name="last_name"  class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Telefon nomeri</label>
+            <input id="phone" type="text" name="phone"  class="form-control">
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+        </div>
+
+      </form>
 
     </div>
   </div>
 </div>
+
+@if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = new bootstrap.Modal(
+                document.getElementById('createTask')
+            );
+            modal.show();
+        });
+    </script>
+@endif
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+
+
 <script>
 
 
- 
-  document.querySelectorAll('#updateTaskAnswerbtn').forEach(button => {
-      button.addEventListener('click', function (){
-        let id = this.dataset.id;
-        
-        document.getElementById('taskAnswerId').value = id;
-       
-      })
-  }); 
-</script>
-<script>
-
-
-  document.querySelectorAll('#editGroupBtn').forEach(button => {
+  document.querySelectorAll('#edittaskBtn').forEach(button => {
       button.addEventListener('click', function () {
 
-          
           let id = this.dataset.id;
-          let teacher = this.dataset.teacher;
-          let day = this.dataset.day;
-          let start = this.dataset.start; 
-          let end = this.dataset.end;
+          let name = this.dataset.name;
+          let score = this.dataset.score;
+          let deadline = this.dataset.deadline; 
+          let file = this.dataset.file
           document.getElementById('taskId').value = id;
-          
-          document.getElementById('startTime').value = start.substring(0, 5);
-          document.getElementById('endTime').value = end.substring(0, 5);
-
-          let select = document.getElementById('teacherId');
-          
-
-          select.querySelectorAll('option').forEach(option => {
-            
-              if (option.value == teacher)
-              {
-                option.selected = true;
-              }
-          })
-
-          let selectDay = document.getElementById('Day');
-          selectDay.querySelectorAll('option').forEach(option => {
-
-              console.log(option)
-              if (option.value == day)
-              {
-                option.selected = true;
-              }
-          });
+          document.getElementById('taskName').value = name;
+          document.getElementById('deadline').value = deadline;
+          document.getElementById('score').value = score;
           
           
       });
@@ -279,48 +289,10 @@
   
 </script>
 
-
-
-
-<script>
-
-    
-    let select = document.getElementById('semester');
-    document.addEventListener('DOMContentLoaded', () => {
-
-    
-    let selectedSemesterId = 1;
-    axios.get('/admin/semester/json')
-        .then(response => {
-            
-            response.data.forEach(element => {
-                select.innerHtml = '';
-                let option = document.createElement('option');
-                option.value = element.id;
-                option.textContent = element.name;
-                select.appendChild(option);
-            });
-        });
-
-    });
-    
-    select.addEventListener('change', function () {
-
-        let groupId = document.getElementById('groupId').value;
-        
-        let semesterId = parseInt(this.value);
-        
-        window.location.href = `/student/subjects/${semesterId}`;
-
-        
-    });
-    
-    </script>
-
 <script>
       let form = document.getElementById('form');
       let clean_btn = document.getElementById('clean_button');
-      
+      console.log(clean_btn);
       clean_btn.addEventListener('click', function () {
           console.log('salom');
           document.getElementById('teacher_id').value = '';

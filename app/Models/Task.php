@@ -14,4 +14,10 @@ class Task extends Model
     {
         return $this->belongsTo(Schedule::class);
     }
+
+
+    public function task_answers()
+    {
+        return $this->hasMany(TaskAnswer::class);
+    }
 }
