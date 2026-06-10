@@ -201,7 +201,7 @@
            
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">LMS Admin</span>
+            <span class="brand-text fw-light">Education System</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->

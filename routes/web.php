@@ -91,4 +91,5 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::put('task/update', [TaskController::class, 'update'])->name('task.update');
     Route::post('task/delete/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
     Route::get('task/rating/{task}', [RatingController::class, 'ratingTask'])->name('task.rating');
+    Route::post('task/rating/create', [RatingController::class, 'store'])->name('rating.store');
 });

@@ -52,5 +52,29 @@ class StudentRepository {
         // $student->save();
         return $student->fresh();
     }
+
+
+    public function getTaskAnswer(int $group_id, $task_id)
+    {
+        
+
+        $students = Student::where('group_id', $group_id)->with([
+            'task_answers.rating'
+        ])->get()->map(function ($student) use ($task_id) {
+            $answer = $student->task_answers->firstWhere('task_id', $task_id);
+
+            return [
+                "id" => $student->id,
+                "name" => $student->first_name . ' ' . $student->last_name,
+                "submitted" => $answer ? true : false,
+                "file" => $answer?->file_answer,
+                "score" => $answer?->rating?->score,
+                "answer_id" => $answer?->id
+            ];
+        });
+
+
+        return $students;
+    }
 }
 

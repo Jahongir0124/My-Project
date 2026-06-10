@@ -21,8 +21,8 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function task_answer()
+    public function task_answers()
     {
-        return $this->hasOne(TaskAnswer::class);
+        return $this->hasMany(TaskAnswer::class);
     }
 }

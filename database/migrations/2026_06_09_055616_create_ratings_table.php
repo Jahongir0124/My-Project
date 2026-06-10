@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('task_answer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('teacher_id')->constrained()->cascadeOnDelete();
-            $table->unsignedInteger('score');
+            $table->unsignedInteger('score')->default(0);
             $table->text('comment')->nullable();
             $table->timestamps();
         });

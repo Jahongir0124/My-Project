@@ -14,6 +14,19 @@ class RatingController extends Controller
 
     public function ratingTask(Task $task)
     {
-        return view('teacher.rating', ['task_answers' => $task->task_answers]);
+        $students = $this->ratingService->ratingTask($task);
+
+       
+        return view('teacher.rating', [
+            'students' => $students,
+            'task' => $task
+            ]);
+    }
+
+
+    public function store(Request $request)
+    {
+        $this->ratingService->store($request);
+        return redirect()->back()->with('succses', 'Created');
     }
 }

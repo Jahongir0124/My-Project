@@ -53,10 +53,10 @@ class TaskService
 
         $scoreMax = ($this->checkScore($data['schedule_id']))['score'];
        
-        if ($scoreMax <= $data['score'])
+        if ($scoreMax < $data['score'] || $data['score'] == 0)
             {
                 throw ValidationException::withMessages([
-                    "score" => "Yangi vazifaga $scoreMax ball berish mumkin!"   
+                    "score" => "Yangi vazifaga $scoreMax ball berish mumkin! vazifa ball 0 bo'lishi mumkin emas"   
                 ]);
             }
         return $this->taskRepository->store($data, $path);
