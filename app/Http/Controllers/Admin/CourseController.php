@@ -31,8 +31,7 @@ class CourseController extends Controller
         return view('admin.courses', 
         [
             'courses' => $courses,
-            'departaments' => $this->departamentService->all()
-            ]);  
+            'departaments' => $this->departamentService->all()]);  
     }
 
 
