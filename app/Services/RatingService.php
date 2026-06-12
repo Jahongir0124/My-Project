@@ -43,4 +43,28 @@ class RatingService
         ]);
 
     }
+
+    public function update($request)
+    {
+        
+        $data = $request->validate([
+            "id" => "required|integer|exists:ratings,id",
+            "score" => "nullable|integer",
+            "comment" => "nullable|string"
+        ]);
+
+        $rating = $this->ratingRepository->findById($data['id']);
+        $scoreTaskMax = $this->taskAnswerRepository->findById($rating->taskAnswer->id)->task->score;
+        if ($data['score'] <= $scoreTaskMax)
+            {
+                return $this->ratingRepository->update($data);
+            }
+
+        throw ValidationException::withMessages([
+            "score" => "Bu vazifaga maksimal $scoreTaskMax ball qo'yish mumkin!"
+        ]);
+    }
+
+
+   
 }

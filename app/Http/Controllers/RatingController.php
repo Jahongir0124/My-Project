@@ -29,4 +29,10 @@ class RatingController extends Controller
         $this->ratingService->store($request);
         return redirect()->back()->with('succses', 'Created');
     }
+
+    public function update(Request $request)
+    {
+        $this->ratingService->update($request);
+        return redirect()->back()->with('success', 'Updated');
+    }
 }

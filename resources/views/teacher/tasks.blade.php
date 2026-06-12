@@ -22,7 +22,8 @@
           </div>
           <div class="mb-3">
             <label>Topshirish muddati</label>
-            <input  type="date" name="deadline"  class="form-control" required>
+            <input  type="date" name="deadline" min="{{ date('Y-m-d') }}"  class="form-control" required>
+            
           </div>
           <div class="mb-3">
             <label>Ball</label>
@@ -58,7 +59,7 @@
         <h5 class="modal1-title">Vazifani tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form action="{{ route('teacher.task.update') }}" id="update_form" method="POST" enctype="multipart/form-data">
+      <form action="" id="update_form" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="modal-body">

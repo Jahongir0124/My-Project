@@ -16,8 +16,8 @@ class Task extends Model
     }
 
 
-    public function task_answers()
+    public function task_answer()
     {
-        return $this->hasMany(TaskAnswer::class);
+        return $this->hasOne(TaskAnswer::class);
     }
 }

@@ -47,9 +47,11 @@ class StudentController extends Controller
 
     public function subjectDetail(int $id)
     {
+
         return view('student-views.subject-detail', 
         [
-            "tasks" => $this->taskService->getTasksBySubject($id)->get()
+            "tasks" => $this->taskService->getTasksBySubject($id)->get(),
+            "indicators" => $this->taskService->indicators($id)
         ]);
     }
 

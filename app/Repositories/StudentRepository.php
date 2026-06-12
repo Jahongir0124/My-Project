@@ -69,12 +69,17 @@ class StudentRepository {
                 "submitted" => $answer ? true : false,
                 "file" => $answer?->file_answer,
                 "score" => $answer?->rating?->score,
-                "answer_id" => $answer?->id
+                "answer_id" => $answer?->id,
+                "rating_id" => $answer?->rating?->id,
+                "rating_comment" => $answer?->rating?->comment
             ];
         });
 
 
         return $students;
     }
+
+
+   
 }
 

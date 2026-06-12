@@ -88,8 +88,9 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('subjects/', [TeacherController::class, 'subjects'])->name('subjects');
     Route::post('task/create', [TaskController::class, 'store'])->name('task.store');
     Route::get('subject/tasks/{schedule}', [TaskController::class, 'tasksBySubject'])->name('subject.tasks');
-    Route::put('task/update', [TaskController::class, 'update'])->name('task.update');
+    Route::put('task/update', [TaskController::class, 'update'])->name('task.edit');
     Route::post('task/delete/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
     Route::get('task/rating/{task}', [RatingController::class, 'ratingTask'])->name('task.rating');
     Route::post('task/rating/create', [RatingController::class, 'store'])->name('rating.store');
+    Route::put('task/update', [RatingController::class, 'update'])->name('rating.edit');
 });

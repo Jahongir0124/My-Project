@@ -133,10 +133,10 @@
                                 </tr>
                                 <tr class="text-center">
                                 
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1%</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
-                                    <td style="border: 1px solid rgb(139, 132, 132)">1</td>
+                                    <td style="border: 1px solid rgb(139, 132, 132)">{{ $indicators['score']}}</td>
+                                    <td style="border: 1px solid rgb(139, 132, 132)">{{ $indicators['procent']}}%</td>
+                                    <td style="border: 1px solid rgb(139, 132, 132)">{{ $indicators['max_score']}}</td>
+                                    <td style="border: 1px solid rgb(139, 132, 132)">{{ $indicators['rating']}}</td>
                             </tr> 
                             </thead>
                      </table>
@@ -168,12 +168,15 @@
                             <td class="text-center">Fayl mavjud emas</td>
                           @endif
                           <td class="text-center">{{ $task->deadline}}</td>
-                          <td class="text-center">0/{{ $task->score}}</td>                       
+                          <td class="text-center">{{ $task->task_answer->rating->score ?? '0'}}/{{ $task->score}}</td>                       
                           <td class="text-center">
-                            @if ($task->taskAnswer)
-                            <a class="btn btn-primary" href="{{ asset('storage/' . $task->taskAnswer->file_answer)}}" download>{{ $task->taskAnswer->file_name }}</a>
-                            <button id="updateTaskAnswerbtn" data-bs-toggle="modal" data-id="{{ $task->taskAnswer->id }}"  data-bs-target="#updateTaskAnswer" class="btn btn-primary mb-2"><i class="bi bi-repeat"></i></button>
-                            
+                            @if ($task->task_answer)
+                              @if ($task->task_answer->rating)
+                              <a class="btn btn-primary" href="{{ asset('storage/' . $task->task_answer->file_answer)}}" download>{{ $task->task_answer->file_name }}</a>
+                              @else
+                              <a class="btn btn-primary" href="{{ asset('storage/' . $task->task_answer->file_answer)}}" download>{{ $task->task_answer->file_name }}</a>
+                              <button id="updateTaskAnswerbtn" data-bs-toggle="modal" data-id="{{ $task->task_answer->id }}"  data-bs-target="#updateTaskAnswer" class="btn btn-primary"><i class="bi bi-repeat"></i></button>
+                              @endif
                             @else
                               <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $task->id }}"  data-bs-target="#createTaskAnswer"   class="btn btn-primary mb-2">+</button>
                             @endif

@@ -40,4 +40,9 @@ class TaskRepository
         
         return $task->delete();
     }
+
+    public function getSumScoreOfTask($Ids)
+    {
+        return Task::whereIn('id', $Ids);
+    }
 }

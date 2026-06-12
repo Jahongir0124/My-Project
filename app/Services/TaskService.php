@@ -3,7 +3,8 @@
 
 namespace app\Services;
 
-use app\Repositories\ScheduleRepository;
+use App\Repositories\ScheduleRepository;
+use App\Repositories\TaskAnswerRepository;
 use App\Repositories\TaskRepository;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,8 @@ class TaskService
 {
     public function __construct(
         protected readonly TaskRepository $taskRepository,
-        protected readonly ScheduleRepository $scheduleRepository
+        protected readonly ScheduleRepository $scheduleRepository,
+        protected readonly TaskAnswerRepository $taskAnswerRepository
         ){}
 
 
@@ -92,6 +94,42 @@ class TaskService
                 Storage::disk('public')->delete($task->file);
             }
         return $this->taskRepository->destroy($task);
+    }
+
+
+    public function indicators(int $id)
+    {
+        
+        $taskIds = $this->getTasksBySubject($id)->get()->pluck('id');
+        $taskAnswers = $this->taskAnswerRepository->getByTaskStudent($taskIds)->get();
+        $tasksScores = $this->taskRepository->getSumScoreOfTask($taskIds)->get();
+        $totalScore = $tasksScores->sum('score');
+        $total = $taskAnswers->sum('rating.score');
+        $result = round($total/$totalScore, 3)*100;
+        $rating = 0;
+        if (60 <= $result && $result < 70)
+            {
+                $rating = 3;
+            }
+        elseif (70 <= $result && $result < 90)
+            {
+                $rating = 4;
+            }
+        elseif (90 <= $result && $result <= 100)
+            {
+                $rating = 5;
+            }
+        else {
+            $rating = 2;
+        }
+        return [
+            "score" => $total,
+            "max_score" => $totalScore,
+            "procent" => $result,
+            "rating" => $rating
+            ];
+        
+
     }
 
    

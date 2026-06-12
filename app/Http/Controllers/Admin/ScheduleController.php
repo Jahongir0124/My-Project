@@ -56,25 +56,19 @@ class ScheduleController extends Controller
 
 
     public function store(ScheduleRequest $request)
-    {
-        
+    {   
         $this->scheduleService->store($request->validated());
         return redirect()->back()->with('success', 'Created');
     }
-
-
     public function update(ScheduleUpdateRequest $request)
     {
-        
         $this->scheduleService->update($request->validated());
         return redirect()->back()->with('success', 'Updated');
     }
-
     public function jsonDay()
     {
         return response()->json($this->scheduleService->days());
     }
-
     public function destroy(int $id)
     {
         $this->scheduleService->destroy($id);

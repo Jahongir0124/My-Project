@@ -4,24 +4,7 @@
 
 @section('content')
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Kurs haqida</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div id="text" class="modal-body">
-         
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="modal fade" id="createRating" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -41,9 +24,54 @@
             <label>Maksimal {{ $task->score }} ball qo'yish mumkin</label>
             <input type="number" name="score" max="{{ $task->score }}" min="0" class="form-control" required>
           </div>
+          @error('score')
+              <div class="text-danger">
+                {{ $message }}
+              </div>            
+          @enderror
           <div class="mb-3">
             <label>Komment qoldiring</label>
             <textarea name="comment" class="form-control"></textarea>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="updateRating" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Ball o'zgartirish</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      
+       
+      <form action="{{ route('teacher.rating.edit') }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div class="modal-body">
+            <input type="hidden" id="ratingId" name="id">
+          <div class="mb-3">
+            <label>Maksimal {{ $task->score }} ball qo'yish mumkin</label>
+            <input id="score" type="number" name="score" max="{{ $task->score }}" min="0" class="form-control" required>
+          </div>
+           @error('score')
+              <div class="text-danger">
+                {{ $message }}
+              </div>            
+          @enderror
+          <div class="mb-3">
+            <label>Komment qoldiring</label>
+            <textarea id="comment" name="comment" class="form-control"></textarea>
           </div>
 
         </div>
@@ -120,17 +148,16 @@
                           @if ($student['submitted'])
                             <td class="text-center"><a href="{{ asset('storage/' . $student['file']) }}" download><i class="bi bi-download"></i></a></td>
                             
-                            @if ($student['score'])
+                            @if ($student['rating_id']  && ($student['score'] == 0 || $student['score'] > 0))
                                 
                             <td class="text-center">{{ $student['score'] }}</td>
                             <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id="" data-name=""
-                              data-score="" data-active=""
-                              data-description=""
+                            <button id="editRatingBtn" data-bs-toggle="modal" data-bs-target="#updateRating" data-id="{{ $student['rating_id'] }}"
+                              data-score="{{ $student['score'] }}" data-comment="{{ $student['rating_comment'] }}"
                               class="btn btn-primary">O'zgartirish</button>
                             </td> 
                             @else
-                            <td class="text-center">0</td>
+                            <td class="text-center"></td>
                             <td class="text-center">
                             <button id="ratingBtn" data-bs-toggle="modal" data-bs-target="#createRating" data-id="{{ $student['answer_id'] }}" 
                               class="btn btn-primary">Baholash</button>
@@ -138,7 +165,7 @@
                             @endif 
                           @else
                             <td class="text-center">Yuklanmagan</td>
-                            <td class="text-center">0</td>
+                            <td class="text-center"></td>
                             <td class="text-center"></td>
                           @endif
                         
@@ -169,57 +196,27 @@
           </div>
           <!--end::Container-->
         </div>
-        
 
-<div class="modal fade" id="updateGroupModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
+@if ($errors->any())
+<script>
+  document.addEventListener('DOMContentLoaded', fucntion() {
+    const modalCreate = new bootstrap.Modal(
+      document.getElementById('createRating')
+    );
+    modalCreate.show();
 
-      <div class="modal-header">
-        <h5 class="modal1-title">Kursni tahrirlash</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      
-       
-      <form action="{{ route('admin.course.update') }}" id="update_form" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-body">
+    const modalUpdate = new bootstrap.Modal(
+      document.getElementById('updateRating')
+    );
 
-          <div class="mb-3">
-            <label>Kurs nomi</label>
-            <input id="course_id" type="hidden" name="id">
-            <input id="course_name" type="text" name="name"  class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Kurs bali</label>
-            <input id="course_score" type="number" name="score_course"  class="form-control">
-          </div>
-         <div class="mb-3">
-            <label for="validationCustom06" class="form-label">Tavsif</label>
-                <textarea id="description" name="description" class="form-control"></textarea>
-              </div>
-          <div class="mb-3 form-check">
-             <label class="form-check-label">Kursni aktiv qilish</label>
-             <input id="is_active" name="is_active" class="form-check-input" type="checkbox" value="">
-          </div>
-       
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
-</div>
+    modalUpdate.show();
+  })
+  </script>
+  
+@endif
 
 
 <script>
-    let activeValue = document.getElementById('is_active').checked;
 
     document.querySelectorAll('#ratingBtn').forEach(element => {
       
@@ -236,17 +233,19 @@
 
 <script>
 
+    document.querySelectorAll('#editRatingBtn').forEach(element => {
 
-  let text = document.getElementById('text');
+        element.addEventListener('click', function() {
+            document.getElementById('ratingId').value = this.dataset.id;
+            document.getElementById('score').value = this.dataset.score;
+            document.getElementById('comment').value = this.dataset.comment;
+        })
 
-  document.querySelectorAll('#btn_description').forEach(element => {
+    });
 
-      element.addEventListener('click', function(){
-        let text = this.dataset.description;
-        console.log(text);
-        let p = document.getElementById('text').innerHTML = text;
-      })
-  });
+
 </script>
+
+
 
 @endsection

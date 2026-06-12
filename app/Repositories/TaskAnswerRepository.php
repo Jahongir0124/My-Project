@@ -27,6 +27,12 @@ class TaskAnswerRepository
         return $taskAnswer->fresh();
     }
 
+    public function getByTaskStudent($Ids)
+    {
+        return TaskAnswer::with('rating')->where('student_id', Auth::user()->student->id)
+        ->whereIn('task_id', $Ids);
+    }
+
 
    
 
