@@ -1,4 +1,5 @@
-# CRM System
+# Educarion Platform
+
 
 ## Features
 - Role-based access
