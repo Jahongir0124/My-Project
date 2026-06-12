@@ -1,4 +1,4 @@
-# LMS System
+# CRM System
 
 ## Features
 - Role-based access
