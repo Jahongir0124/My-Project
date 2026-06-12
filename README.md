@@ -1,4 +1,4 @@
-# Educarion Platform
+# Education Platform
 
 
 ## Features
