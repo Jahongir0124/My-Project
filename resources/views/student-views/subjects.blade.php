@@ -73,15 +73,15 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($schedules as $schedule)
+                        @foreach ($courses as $course)
                             
                             <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
-                          <td class="text-center">{{ $schedule->course->name}}</td>
-                          <td class="text-center"><a class="btn btn-primary mb-2 " >1</a></td>
-                          <td class="text-center">{{ $schedule->teacher->full_name}}</td>                       
+                          <td class="text-center">{{ $course->name}}</td>
+                          <td class="text-center"><a href="" class="btn btn-primary mb-2 " >{{ $course->count_attendance ?? 0}} </a></td>
+                          <td class="text-center">{{ $course->teacher->full_name}}</td>                       
                             <td class="text-center">
-                                <a href="{{ route('student.subject.detail', ['id' => $schedule->id]) }}"   class="btn btn-primary mb-2">Batafsil</a>
+                                <a href="{{ route('student.subject.detail', ['course' => $course]) }}"   class="btn btn-primary mb-2">Batafsil</a>
                             </td>  
                                    
                         </tr>

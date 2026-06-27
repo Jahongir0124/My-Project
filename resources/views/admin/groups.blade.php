@@ -86,7 +86,7 @@
             <div class="row">
               <div class="col-sm-6">
                 
-                <a class="btn btn-primary" href="{{ route('admin.groups.create') }}"> Guruh qo'shish +</a>
+                <a class="btn btn-primary" href="{{ route('admin.groups.create') }}"> {{ __("Guruh qo'shish") }} +</a>
               
               </div>
               <div class="col-sm-6">
@@ -116,11 +116,12 @@
                       <thead>
                         <tr>
                           <th style="width: 40px"> #</th>
-                          <th style="width: 20%" class="text-center">Guruh Nomeri</th>
-                          <th style="width: 30%" class="text-center">Fakultet</th>
-                          <th style="width: 20%" class="text-center">Talabalar soni</th>
-                          <th style="width: 20%" class="text-center">Tahrirlash</th>
-                          <th style="width: 20%" class="text-center">O'chirish</th>
+                          <th style="width: 20%" class="text-center">{{ __("Guruh Nomeri") }}</th>
+                          <th style="width: 30%" class="text-center">{{ __("Fakultet nomi") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Talabalar soni") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Smena tanlash") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Tahrirlash") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("O'chirish") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -131,6 +132,9 @@
                           <td class="text-center">{{ $group->name}}</td>
                           <td class="text-center">{{ $group->departament->name}}</td>
                           <td class="text-center">{{ $group->students->count()}}</td>
+                          <td class="text-center">
+                            <button id="selectSemesterBtn" data-target="#" data-bs-toggle="modal" data-bs-target="#selectShift" data-id="{{ $group->id }}" data-group="" data-count="" class="btn btn-primary mb-2"><i class="bi bi-sliders"></i></button>
+                            </td>  
                           <td class="text-center">
                             <button id="editGroupBtn" data-target="#" data-bs-toggle="modal" data-bs-target="#updateGroupModal" data-id="{{ $group->id }}" data-group="{{ $group->name }}" data-count="{{ $group->student_count }}" class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
@@ -168,7 +172,7 @@
         </div>
         
 
-      <div class="modal fade" id="updateGroupModal" tabindex="-1">
+<div class="modal fade" id="updateGroupModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -205,24 +209,83 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="selectShift" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <div class="modal-header">
+        <h5 class="modal1-title">Smena tanlash</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      
+       
+      <form action="{{ route('admin.group.semester') }}" id="update_form" method="POST">
+        @csrf
+        <div class="modal-body">
+          <input type="hidden" id="groupId" name="group_id">
+           <div class="mb-3">
+              <label for="validationCustom04" class="form-label">Semester tanlang</label>
+                  <select id="semester_id" name="semester_id" class="form-select" id="validationCustom04" required>
+                  </select>
+                  </div>
+           <div class="mb-3">
+              <label for="validationCustom04" class="form-label">Smenani tanlang</label>
+                  <select id="shift_id" name="shift_id" class="form-select" id="validationCustom04" required>
+                      @foreach ($shifts as $shift)
+                          <option value="{{ $shift->id }}">{{ $shift->name }}</option>
+                      @endforeach
+                  </select>
+                  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 document.querySelectorAll('#editGroupBtn').forEach(button => {
     button.addEventListener('click', function () {
-
-        
         let id = this.dataset.id;
         let name = this.dataset.group;
         let count = this.dataset.count; 
-        
         document.getElementById('group_id').value = id;
         document.getElementById('group_name').value = name;
-        document.getElementById('student_count').value = count;
-        
-       
+        document.getElementById('student_count').value = count;   
     });
 });
 </script>
+
+<script>
+
+  
+  document.querySelectorAll('#selectSemesterBtn').forEach(button => {
+      button.addEventListener('click', function () {
+        let groupId = this.dataset.id;
+        document.getElementById('groupId').value = groupId;
+        axios.get('/admin/semester/usedSemester', {
+          params: {
+            groupId: groupId
+          }
+        }).then(
+          response => {
+             let select = document.getElementById('semester_id');
+             select.innerHTML  = '';
+            response.data.forEach(element => {
+              let option = document.createElement('option');
+              option.value = element.id;
+              option.textContent = element.name;
+              select.appendChild(option);
+            });
+          }
+        );
+      })
+  });
+  </script>
 
 
 

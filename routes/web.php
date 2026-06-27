@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\StudentManagamentController;
 use App\Http\Controllers\Admin\TeacherManagementController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\Admin\ShiftController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\TaskAnswerController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
@@ -22,7 +24,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // Admin Routes
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'lang', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('departaments/', [DepartamentController::class, 'index'])->name('departament.index');
     Route::post('departament/create', [DepartamentController::class, 'create'])->name('departament.create');
@@ -37,6 +39,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('/group-update', [GroupController::class, "update"])->name("group.update");
     Route::get('group/filter', [GroupController::class, 'filter'])->name('group.filter');
     Route::get('group/json', [GroupController::class, 'json'])->name('group.json');
+    Route::post('group/semester/store', [GroupController::class, 'createGroupSemester'])->name('group.semester');
     Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
     Route::get('/course/create', [CourseController::class, 'create'])->name('course.create');
     Route::post('/course/store', [CourseController::class, 'store'])->name('course.store');
@@ -48,8 +51,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::put('semester/update', [SemestrController::class, 'update'])->name('semester.update');
     Route::post('semester/delete/{id}', [SemestrController::class, 'destroy'])->name('semester.destroy');
     Route::get('semester/json', [SemestrController::class, 'json'])->name('semester.json');
+    Route::get('semester/usedSemester', [SemestrController::class, 'usedSemester'])->name('semester.used');
     Route::get('schedule/index', [ScheduleController::class, 'index'])->name('schedule.index');
-    Route::get('schedule/group/{group_id}/{semester_id?}', [ScheduleController::class, 'schedulesByGroup'])->name('schedule.group');
+    Route::get('schedule/group/semester/{groupSemester}', [ScheduleController::class, 'scheduleGroupSemester'])->name('schedule.group.semester');
     Route::post('schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
     Route::put('schedule/update', [ScheduleController::class, 'update'])->name('schedule.update');
     Route::get('schedule/days', [ScheduleController::class, 'jsonDay'])->name('schedule.jsonDay');
@@ -63,6 +67,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('student/store', [StudentManagamentController::class, 'store'])->name('student.store');
     Route::post('student/destroy/{id}', [StudentManagamentController::class, 'destroy'])->name('student.destroy');
     Route::put('student/update', [StudentManagamentController::class, 'update'])->name('student.update');
+    Route::get('shift/index', [ShiftController::class, 'index'])->name('shift.index');
+    Route::post('shift/store', [ShiftController::class, 'store'])->name('shift.store');
+    Route::post('shift/destroy/{shift}', [ShiftController::class, 'destroy'])->name('shift.destroy');
+    Route::get('pair/json', [ShiftController::class, 'shift_pairs'])->name('pair.json');
+    Route::get('profile/', [AdminController::class, 'profile'])->name('profile.settings');
+    Route::put('profile/update', [AdminController::class, 'editProfile'])->name('profile.edit');
     });
 
 //StudentController Routes
@@ -73,12 +83,13 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('/', [StudentController::class, 'index'])->name('dashboard');
     Route::get('subjects/{semester_id?}', [StudentController::class, 'subjects'])->name('subjects');
     Route::get('subject/select', [StudentController::class, 'subjectSelect'])->name('subject.select');
-    Route::get('subject/detail/{id}', [StudentController::class, 'subjectDetail'])->name('subject.detail');
+    Route::get('subject/detail/{course}', [StudentController::class, 'subjectDetail'])->name('subject.detail');
     Route::post('task/answer/create', [TaskAnswerController::class, 'store'])->name('taskAnswer.store');
     Route::put('task/answer/update', [TaskAnswerController::class, 'update'])->name('taskAnswer.update');
+    Route::get('schedule/', [StudentController::class, 'schedule'])->name('schedule.index');
+    Route::get('schedule/detail/{group_semester_id}', [StudentController::class, 'scheduleDetail'])->name('schedule.detail');
 
 });
-
 
 //TeacherController Routes
 
@@ -87,10 +98,15 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('/', [TeacherController::class, 'index'])->name('index');
     Route::get('subjects/', [TeacherController::class, 'subjects'])->name('subjects');
     Route::post('task/create', [TaskController::class, 'store'])->name('task.store');
-    Route::get('subject/tasks/{schedule}', [TaskController::class, 'tasksBySubject'])->name('subject.tasks');
-    Route::put('task/update', [TaskController::class, 'update'])->name('task.edit');
+    Route::get('subject/tasks/{course}', [TaskController::class, 'tasksBySubject'])->name('subject.tasks');
+    Route::put('task/edit', [TaskController::class, 'update'])->name('task.edit');
     Route::post('task/delete/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
     Route::get('task/rating/{task}', [RatingController::class, 'ratingTask'])->name('task.rating');
     Route::post('task/rating/create', [RatingController::class, 'store'])->name('rating.store');
     Route::put('task/update', [RatingController::class, 'update'])->name('rating.edit');
+    Route::get('attendance/index', [AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('attendance/create/{course}', [AttendanceController::class, 'create'])->name('attendance.create');
+    Route::post('attendance/store', [AttendanceController::class, 'store'])->name('attendance.store');
+    Route::get('subject/lesson/{course}', [AttendanceController::class, 'getAttendanceByCourse'])->name('subject.lessons');
+
 });

@@ -20,7 +20,7 @@ class RatingService
 
     public function ratingTask($task)
     { 
-        return $this->studentRepository->getTaskAnswer($task->schedule->group->id, $task->id); 
+        return $this->studentRepository->getTaskAnswer($task->course->group->id, $task->id); 
     }
     public function store($request)
     {

@@ -1,0 +1,107 @@
+body {
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Jadval joylashadigan asosiy karta */
+.schedule-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Jadval tepasi (Header) qismi */
+.table-schedule thead {
+    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    color: white;
+}
+
+.table-schedule th {
+    font-weight: 600;
+    padding: 18px;
+    text-align: center;
+    min-width: 180px;
+    vertical-align: middle;
+}
+
+.table-schedule th:first-child {
+    min-width: 100px;
+    background: #1e3bb3;
+}
+
+.table-schedule td {
+    padding: 15px;
+    vertical-align: middle;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+/* Paralar (Vaqt) ustuni stili */
+.time-col {
+    background-color: #f8f9fc !important;
+    font-weight: bold;
+    color: #4e73df;
+    text-align: center;
+    border-right: 2px solid #e3e6f0;
+}
+
+/* Har bir darsning ichki kartochkasi */
+.subject-card {
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #4e73df;
+    background-color: #f8f9fc;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.subject-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Dars turlariga qarab ranglar */
+.bg-lecture { 
+    border-left-color: #1cc88a; 
+    background-color: #f0fbf7; 
+} /* Ma'ruza (Yashil) */
+
+.bg-practice { 
+    border-left-color: #36b9cc; 
+    background-color: #f0fafc; 
+} /* Amaliyot (Ko'k) */
+
+.bg-empty { 
+    border-left-color: #858796; 
+    background-color: #f1f1f4; 
+    opacity: 0.6; 
+} /* Dars yo'q bo'lsa (Kulrang) */
+
+/* Karta ichidagi matnlar stili */
+.subject-name {
+    font-weight: 600;
+    color: #2e384d;
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+}
+
+.teacher-name {
+    font-size: 0.8rem;
+    color: #788293;
+}
+
+.room-number {
+    font-size: 0.8rem;
+    color: #4e73df;
+    font-weight: 600;
+}

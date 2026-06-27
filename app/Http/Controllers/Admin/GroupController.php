@@ -9,15 +9,15 @@ use App\Services\DepartamentService;
 use App\Http\Requests\Admin\Group\GroupRequest;
 use App\Http\Requests\Admin\Group\UpdateGroupRequest;
 use App\Services\SemesterService;
-
-
+use App\Services\ShiftService;
 
 class GroupController extends Controller
 {
      public function __construct(
             protected readonly  GroupService $groupService,
             protected readonly DepartamentService $departamentService,
-            protected readonly SemesterService $semestrService
+            protected readonly SemesterService $semestrService,
+            protected readonly ShiftService $shiftService
             ){}
        
 
@@ -26,7 +26,9 @@ class GroupController extends Controller
             return view('admin.groups', [
                 'groups' => $this->groupService->groups()->latest()->paginate(10),
                 'departaments' => $this->departamentService->all(),
-                'semestrs' => $this->semestrService->all()
+                'semestrs' => $this->semestrService->all(),
+                "shifts" => $this->shiftService->index()
+                
             ]);
         }
 
@@ -78,5 +80,13 @@ class GroupController extends Controller
         {
             return response()->json($this->groupService->groups()->get(['id', 'name']));
         }
+
+        public function createGroupSemester(Request $request)
+        {
+            $this->groupService->createSemesterGroup($request);
+            return redirect()->back()->with('success', 'Created');
+        }
+
+        
 
 }

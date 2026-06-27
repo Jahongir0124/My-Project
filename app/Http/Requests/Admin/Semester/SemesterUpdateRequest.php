@@ -14,7 +14,8 @@ class SemesterUpdateRequest extends FormRequest
             "id" => "required|integer|exists:semesters,id",
             "name" => "required|string|max:255",
             "start_date" => "nullable|date",
-            "end_date" => "nullable|date"
+            "end_date" => "nullable|date",
+           
         ];
     }
 }

@@ -12,7 +12,7 @@ class TaskRequest extends FormRequest
     {
         return [
 
-            "schedule_id" => "required|integer|exists:schedules,id",
+            "course_id" => "required|integer|exists:courses,id",
             "name" => "required|string|max:200",
             "deadline" => "required|date",
             "score" => "nullable|integer",

@@ -204,7 +204,7 @@
            
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">Education System</span>
+            <span class="brand-text fw-light">Education Platform</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -239,6 +239,24 @@
                 <a href="#" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
                   <i class="nav-icon bi bi-table"></i>
                   <p>Dars jadvali</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{{ route('teacher.attendance.index') }}" class="nav-link {{ request()->routeIs('teacher.attendance.index') ? 'active': '' }}">
+                  <i class="nav-icon bi-clipboard2-check-fill"></i>
+                  <p>Davomat</p>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="#" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
+                  <i class="nav-icon bi bi-clipboard2-data"></i>
+                  <p>Imtixonlar</p>
+                </a>
+              </li>
+                 <li class="nav-item">
+                <a href="#" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
+                  <i class="nav-icon bi bi-table"></i>
+                  <p>Ma'lumot</p>
                 </a>
               </li>
    

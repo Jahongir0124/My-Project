@@ -9,14 +9,14 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Kurs haqida</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">{{ __("Kurs haqida") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div id="text" class="modal-body">
          
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __("Yopish") }}</button>
         
       </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Kurs qo'shish</h5>
+        <h5 class="modal-title">{{ __("Kurs qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -137,7 +137,7 @@
               <div class="col-sm-6">
                 
                 <a class="btn btn-primary" href="{{ route('admin.course.create') }}">
-                    Yangi Kurs qo'shish +
+                    {{ __("Kurs qo'shish")  }} +
                 </a>
               </div>
               <div class="col-sm-6">
@@ -167,13 +167,14 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Kurs nomi</th>
-                          <th class="text-center">Fakultet</th>
-                          <th class="text-center">Kurs bali</th>
-                          <th class="text-center">Description</th>
-                          <th class="text-center">Status</th>
-                          <th class="text-center">Tahrirlash</th>
-                          <th class="text-center">O'chirish</th>
+                          <th class="text-center">{{ __("Kurs nomi") }}</th>
+                          <th class="text-center">{{ __("Guruh") }}</th>
+                          <th class="text-center">{{ __("Semester") }}</th>
+                          <th class="text-center">{{ __("Kurs bali") }}</th>
+                          <th class="text-center">{{ __("Description") }}</th>
+                          <th class="text-center">{{ __("Status") }}</th>
+                          <th class="text-center">{{ __("Tahrirlash") }}</th>
+                          <th class="text-center">{{ __("O'chirish") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -182,7 +183,8 @@
                         <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
                           <td class="text-center">{{ $course->name ?? 'kiritilmagan' }}</td>
-                          <td class="text-center">{{ $course->departament->name ?? 'kiritilmagan' }}</td>
+                          <td class="text-center">{{ $course->group->name ?? 'kiritilmagan' }}</td>
+                          <td class="text-center">{{ $course->semester->name ?? 'kiritilmagan' }}</td>
                           <td class="text-center">{{ $course->score_course }}</td>
                           <td class="text-center">
                             <button id="btn_description" type="button" class="btn btn-primary" data-description="{{ $course->description }}" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -199,7 +201,7 @@
                             </td>  
                           <td class="text-center">
                             <form action="{{ route("admin.course.destroy", ['id' => $course->id]) }}" method='POST' 
-                              onsubmit="return confirm('{{ $course->name }} - o\'chirilsinmi?')">
+                              onsubmit="return confirm('{{ $course->name }} - {{ __("ochirilsinmi") }}?')">
                               @csrf
                               <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
                             </form>
@@ -236,7 +238,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Kursni tahrirlash</h5>
+        <h5 class="modal1-title">{{ __("Kursni tahrirlash") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -247,20 +249,20 @@
         <div class="modal-body">
 
           <div class="mb-3">
-            <label>Kurs nomi</label>
+            <label>{{ __("Kurs nomi") }}</label>
             <input id="course_id" type="hidden" name="id">
             <input id="course_name" type="text" name="name"  class="form-control">
           </div>
           <div class="mb-3">
-            <label>Kurs bali</label>
+            <label>{{ __("Kurs bali") }}</label>
             <input id="course_score" type="number" name="score_course"  class="form-control">
           </div>
          <div class="mb-3">
-            <label for="validationCustom06" class="form-label">Tavsif</label>
+            <label for="validationCustom06" class="form-label">{{ __("Tavsif") }}</label>
                 <textarea id="description" name="description" class="form-control"></textarea>
               </div>
           <div class="mb-3 form-check">
-             <label class="form-check-label">Kursni aktiv qilish</label>
+             <label class="form-check-label">{{ __("Kursni aktiv qilish") }}</label>
              <input id="is_active" name="is_active" class="form-check-input" type="checkbox" value="">
           </div>
        
@@ -268,7 +270,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
 
       </form>

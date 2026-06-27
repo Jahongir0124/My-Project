@@ -56,5 +56,22 @@ class ScheduleRepository
         return Schedule::findOrFail($id);
     }
 
+
+    public function createdSchedule(int $gr_semester_id, $day_id)
+    {
+        return Schedule::where('group_semester_id', $gr_semester_id)
+        ->where('day_id', $day_id)->pluck('pair_id');
+    }
+
+    public function getScheduleByGroupSemester($group_semester_id)
+    {
+        return Schedule::with(
+            'day',
+            'pair',
+            'course',
+            'teacher'
+        )->where('group_semester_id', $group_semester_id)->get();
+    }
+
     
 }

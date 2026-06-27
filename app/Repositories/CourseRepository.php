@@ -86,5 +86,10 @@ class CourseRepository
     {
         return Course::where('departament_id', $departament)->get();
     }
+
+    public function findById($id)
+    {
+        return Course::findOrFail($id);
+    }
 }
 

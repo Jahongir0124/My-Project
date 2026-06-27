@@ -17,5 +17,10 @@ class Semester extends Model
         return $this->hasMany(Group::class);
     }
 
+    public function group_semesters()
+    {
+        return $this->hasMany(GroupSemester::class);
+    }
+
     
 }

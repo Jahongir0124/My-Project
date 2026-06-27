@@ -26,7 +26,7 @@ class DepartamentService
         return DB::transaction(function () use ($data){
             $faculity = $this->departamentRepository->create($data['name']);
 
-            $this->courseRepository->createMany($faculity, $data['courses'] ?? []);
+            // $this->courseRepository->createMany($faculity, $data['courses'] ?? []);
 
             return $faculity;
         });

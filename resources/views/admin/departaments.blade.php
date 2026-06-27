@@ -10,31 +10,24 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Fakultet qo'shish</h5>
+        <h5 class="modal-title">{{ __("Fakultet qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
     {{-- Modal Departament Create --}}
-      <form action="" method="POST">
+      <form action="{{ route('admin.departament.create') }}" method="POST">
               @csrf
 
               <div class="modal-body">
 
                   <div class="mb-3">
-                      <label>Fakultet nomini kiriting nomi</label>
+                      <label>{{ __("Fakultet nomini kiriting") }}</label>
                       <input id="faculity_name" type="text" name="name" class="form-control" id="facultyName">
                   </div>
 
                   <span class="course_name"></span>
 
-                  <div class="mb-3">
-                      <label>Fakultetga kurs qo'shish</label>
-
-                      <div class="d-flex gap-2">
-                          <input type="text" class="form-control" id="courseInput">
-                          <span id class="btn btn-primary" onclick="addCourse()">+</span>
-                      </div>
-                  </div>
+                  
 
                   <!-- course list chiqadigan joy -->
                   <div id="courseList" class="mb-2"></div>
@@ -45,7 +38,7 @@
               </div>
 
               <div class="modal-footer">
-                  <button type="button" onclick="submitForm()" class="btn btn-primary">Saqlash</button>
+                  <button type="submit" onclick="submitForm()" class="btn btn-primary">{{ __("Saqlash") }}</button>
               </div>
 
 </form>
@@ -146,7 +139,7 @@
                
                
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
-                    Falultet qo'shish
+                    {{ __("Fakultet qo'shish") }}
                 </button>
               </div>
               <div class="col-sm-6">
@@ -176,12 +169,12 @@
                       <thead>
                         <tr>
                           <th style="width: 40px"> #</th>
-                          <th style="width: 25%" class="text-center">Fakultet nomi</th>
-                          <th style="width: 20%" class="text-center">Jami o'qituvchilar</th>
-                          <th style="width: 20%" class="text-center">Guruhlar soni</th>
-                          <th style="width: 20%" class="text-center">Talabalar soni</th>
-                          <th style="width: 20%" class="text-center">Tahrirlash</th>
-                          <th style="width: 20%" class="text-center">O'chirish</th>
+                          <th style="width: 25%" class="text-center">{{ __("Fakultet nomi") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Jami o'qituvchilar") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Guruhlar soni") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Talabalar soni") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("Tahrirlash") }}</th>
+                          <th style="width: 20%" class="text-center">{{ __("O'chirish") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -199,7 +192,7 @@
                             </td>  
                           <td class="text-center">
                             <form action="{{ route('admin.departament.destroy', ['id' => $departament->id]) }}" method='POST' 
-                              onsubmit="return confirm('{{ $departament->name }} - o\'chirilsinmi?')">
+                              onsubmit="return confirm('{{ $departament->name }} - {{ __("ochirilsinmi") }}?')">
                               @csrf
                               <button type="submit" class="btn btn-danger mb-2"><i class="bi bi-trash"></i></button>
                             </form>
@@ -234,7 +227,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
+        <h5 class="modal1-title">{{ __("Fakultetni tahrirlash") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -245,7 +238,7 @@
         <div class="modal-body">
 
           <div class="mb-3">
-            <label>Fakultet nomi</label>
+            <label>{{ __("Fakultet nomi") }}</label>
             <input id="departament_id" type="hidden" name="id">
             <input id="departament_name" type="text" name="name"  class="form-control">
           </div>
@@ -253,7 +246,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
 
       </form>
@@ -279,7 +272,7 @@ document.querySelectorAll('#editGroupBtn').forEach(button => {
     });
 });
 </script>
-<script>
+{{-- <script>
   let courses = [];
   function addCourse() {
     let input = document.getElementById('courseInput');
@@ -354,8 +347,5 @@ function submitForm()
     alert("Fakultet nomi kiritilmagan!");
   }
 }
-
-
-
-  </script>
+  </script> --}}
 @endsection

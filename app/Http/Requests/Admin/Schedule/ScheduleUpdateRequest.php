@@ -12,7 +12,7 @@ class ScheduleUpdateRequest extends FormRequest
     {
         return [
             "id" => "required|integer|exists:schedules,id",
-            "teacher_id" => "required|integer|exists:teachers,id",
+            
             "day" => "required|string",
             "start_time" => "required|date_format:H:i",
             "end_time" => "required|date_format:H:i"

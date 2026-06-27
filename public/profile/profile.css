@@ -1,0 +1,120 @@
+
+
+/* Yaxlit, toza o'quv kartasi */
+.edu-profile-card {
+    background: #ffffff;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(165, 178, 201, 0.15);
+    padding: 40px;
+}
+
+/* Profil rasmi - Talaba stili */
+.edu-avatar-zone {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 30px auto;
+}
+
+.student-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #eef2ff;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+}
+
+.avatar-edit-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    background-color: #4f46e5; /* Platformaning asosiy ko'k-binafsha rangi */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: 3px solid #ffffff;
+    transition: all 0.2s ease;
+}
+
+.avatar-edit-badge:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
+}
+
+/* Kichik qulay sarlavhalar */
+.edu-section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1e1b4b;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Toza Inputlar */
+.edu-input-group {
+    margin-bottom: 25px;
+}
+
+.edu-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.edu-field {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    background-color: #f8fafc;
+    transition: all 0.2s;
+}
+
+.edu-field:focus {
+    border-color: #4f46e5;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    outline: none;
+}
+
+select.edu-field {
+    cursor: pointer;
+}
+
+/* Ta'lim tugmalari */
+.btn-edu-save {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 12px 32px;
+    border-radius: 12px;
+    border: none;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.btn-edu-save:hover {
+    background-color: #4338ca;
+}
+
+/* Chiziqli ajratgich */
+.edu-divider {
+    height: 1px;
+    background-color: #e2e8f0;
+    margin: 25px 0;
+}

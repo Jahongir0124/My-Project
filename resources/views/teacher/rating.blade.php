@@ -96,7 +96,7 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-                <a href="{{ route('teacher.subject.tasks', ['schedule' => $task->schedule]) }}"  class="btn btn-outline-secondary" >
+                <a href="{{ route('teacher.subject.tasks', ['course' => $task->course]) }}"  class="btn btn-outline-secondary" >
                     Orqaga
                 </a>
               

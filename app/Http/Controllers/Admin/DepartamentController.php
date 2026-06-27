@@ -32,13 +32,10 @@ class DepartamentController extends Controller
         $data = $request->validate([
             
             "name" => "required|string|max:255",
-            "courses" => "nullable|array"
         ]);
         
         $this->departamentService->create($data);
-        return response()->json([
-        'message' => 'Created successfully'
-            ]);
+        return redirect()->back()->with('success', 'Cretted');
     }
 
 

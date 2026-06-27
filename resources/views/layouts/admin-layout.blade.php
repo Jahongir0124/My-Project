@@ -60,6 +60,7 @@
 
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="/admin-assests/adminlte.css" />
+    <link rel="stylesheet" href="/profile/profile.css" />
 
 
     <!--end::Required Plugin(AdminLTE)-->
@@ -104,11 +105,7 @@
           <!--begin::End Navbar Links-->
           <ul class="navbar-nav ms-auto">
             <!--begin::Navbar Search-->
-            <li class="nav-item">
-              <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="bi bi-search"></i>
-              </a>
-            </li>
+           
             <!--end::Navbar Search-->
 
             <!--begin::Messages Dropdown Menu-->
@@ -149,24 +146,25 @@
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+
                 <img
-                  src="./assets/img/user2-160x160.jpg"
+                  src="{{ asset('storage/'. auth()->user()->profile?->image ) }}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                <span class="d-none d-md-inline">{{ auth()->user()->name}}</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    src="./assets/img/user2-160x160.jpg"
+                    src="{{ asset('storage/'. auth()->user()->profile?->image ) }}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />
                   <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2023</small>
+                    {{ auth()->user()->name }}
+                    <small> {{ auth()->user()->created_at }}</small>
                   </p>
                 </li>
                 <!--end::User Image-->
@@ -182,9 +180,9 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <form action="{{ route('logout') }}" method="POST">
-                  <a href="#" class="btn btn-outline-secondary">Profile</a>
+                  <a href="{{ route('admin.profile.settings') }}" class="btn btn-outline-secondary">{{ __("Sozlamalar") }}</a>
                   @csrf
-                  <button type="submit" class="btn btn-outline-danger float-end">Tizimdan chiqish </button>
+                  <button type="submit" class="btn btn-outline-danger float-end">{{ __("Tizimdan chiqish") }}</button>
                  </form>
                 </li>
                 <!--end::Menu Footer-->
@@ -207,7 +205,7 @@
            
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">LMS Admin</span>
+            <span class="brand-text fw-light">Education Platform</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -232,58 +230,59 @@
                 <li class="nav-item">
                 <a  href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                   <i class="nav-icon bi-speedometer"></i>
-                  <p>Dashboard</p>
+                  <p>{{ __("Dashboard") }}</p>
                 </a>
               </li>
                <li class="nav-item">
                 <a href="{{ route('admin.departament.index') }}" class="nav-link {{ request()->routeIs('admin.departament.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-box-seam"></i>
-                  <p>Fakultetlar</p>
+                  <p>{{ __("Fakultetlar") }}</p>
                 </a>
               </li>
                <li class="nav-item">
                 <a href="{{ route('admin.semester.index') }}" class="nav-link {{ request()->routeIs('admin.semester.index') ? 'active' : '' }}">
                   <i class="nav-icon  bi bi-clock"></i>
-                  <p>Semestrlar</p>
+                  <p>{{ __("Semestrlar") }}</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('admin.group.index') }}" class="nav-link {{ request()->routeIs('admin.group.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-palette"></i>
-                  <p>Guruhlar</p>
+                  <p>{{ __("Guruhlar") }}</p>
                 </a>
               </li>
               
                <li class="nav-item">
                 <a href="{{ route('admin.courses.index') }}" class="nav-link {{ request()->routeIs('admin.courses.index') ? 'active': ''}}">
                   <i class="nav-icon bi bi-clipboard"></i>
-                  <p>Kurslar</p>
+                  <p>{{ __("Kurslar") }}</p>
                 </a>
               </li>
               
                 <li class="nav-item">
                 <a href="{{ route('admin.teacher.index') }}" class="nav-link {{ request()->routeIs('admin.teacher.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-person"></i>
-                  <p>O'qituvchilar</p>
+                  <p>{{ __("O'qituvchilar") }}</p>
                 </a>
                  </li>
                 <li class="nav-item">
                 <a href="{{ route('admin.student.index') }}" class="nav-link {{ request()->routeIs('admin.student.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-person"></i>
-                  <p>Talabalar</p>
+                  <p>{{ __("Talabalar") }}</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('admin.schedule.index') }}" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
                   <i class="nav-icon bi bi-table"></i>
-                  <p>Dars jadvali qo'shish</p>
+                  <p>{{ __("Dars jadvali qo'shish") }}</p>
                 </a>
               </li>
-            
-           
-             
-          
-            
+               <li class="nav-item">
+                <a href="{{ route('admin.shift.index') }}" class="nav-link {{ request()->routeIs('admin.shift.index') ? 'active': '' }}">
+                  <i class="nav-icon bi bi-building-add"></i>
+                  <p>{{ __("Smena qo'shish") }}</p>
+                </a>
+              </li>
             <!--end::Sidebar Menu-->
           </nav>
         </div>

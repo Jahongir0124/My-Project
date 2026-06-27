@@ -15,7 +15,7 @@
         @csrf
       
         <div class="modal-body">
-            <input id="scheduleId" type="hidden" name="schedule_id" value="{{ $schedule }}">
+            <input id="courseId" type="hidden" name="course_id" value="{{ $course }}">
           <div class="mb-3">
             <label>Vazifa nomi</label>
             <input  type="text" name="name"  class="form-control" required>
@@ -59,7 +59,7 @@
         <h5 class="modal1-title">Vazifani tahrirlash</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <form action="" id="update_form" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('teacher.task.edit') }}" id="update_form" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="modal-body">
@@ -110,8 +110,6 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-               
-               
                 <button  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTask">
                     Vazifa qo'shish
                 </button>
@@ -172,10 +170,7 @@
                              </td>
                           <td class="text-center">{{ $task->score}}</td>
                           <td class="text-center"> <a class="btn btn-primary mb-2" href="{{ route('teacher.task.rating', ['task' => $task]) }}">
-                                +</a></td>
-                     
-                         
-                          
+                                +</a></td> 
                           <td class="text-center">
                             <button id="edittaskBtn" data-bs-toggle="modal" data-id="{{ $task->id }}" data-name="{{ $task->name }}" data-deadline="{{ $task->deadline }}" data-score="{{ $task->score }}" data-bs-target="#updateTask"   class="btn btn-primary mb-2"><i class="bi bi-pen"></i></button>
                             </td>  
@@ -211,46 +206,7 @@
         </div>
         
 
-<div class="modal fade" id="updateGroupModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      
-       
-      <form action="{{ route('admin.teacher.update') }}" id="update_form" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-body">
-
-          <div class="mb-3">
-            <label>Ismi</label>
-            <input id="teacher_id" type="hidden" name="id">
-            <input id="first_name" type="text" name="first_name"  class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Familiya</label>
-            <input id="last_name" type="text" name="last_name"  class="form-control">
-          </div>
-          <div class="mb-3">
-            <label>Telefon nomeri</label>
-            <input id="phone" type="text" name="phone"  class="form-control">
-          </div>
-
-        </div>
-
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
-        </div>
-
-      </form>
-
-    </div>
-  </div>
-</div>
 
 @if ($errors->any())
     <script>
@@ -264,12 +220,8 @@
 @endif
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
-
 <script>
-
-
-  document.querySelectorAll('#edittaskBtn').forEach(button => {
+document.querySelectorAll('#edittaskBtn').forEach(button => {
       button.addEventListener('click', function () {
 
           let id = this.dataset.id;
@@ -281,123 +233,10 @@
           document.getElementById('taskName').value = name;
           document.getElementById('deadline').value = deadline;
           document.getElementById('score').value = score;
-          
-          
       });
-
-    
 });
   
 </script>
 
-<script>
-      let form = document.getElementById('form');
-      let clean_btn = document.getElementById('clean_button');
-      console.log(clean_btn);
-      clean_btn.addEventListener('click', function () {
-          console.log('salom');
-          document.getElementById('teacher_id').value = '';
-          document.getElementById('first_name').value = '';
-          document.getElementById('last_name').value = '';
-          document.getElementById('phone').value = '';
-          form.submit();
-      })
-  </script>
-<script>
-  let courses = [];
-  function addCourse() {
-    let input = document.getElementById('courseInput');
-    let value = input.value.trim();
 
-    if (value === '') return;
-
-    courses.push(value);
-
-    input.value = '';
-
-    renderCourses();
-    syncToHiddenInput();
-    
-    }
-
-  function renderCourses() {
-    let container = document.getElementById('courseList');
-
-    container.innerHTML = '';
-
-    courses.forEach((course, index) => {
-        container.innerHTML += `
-            <div class="d-flex justify-content-between border p-1 mb-1">
-                <span>${course}</span>
-                <button type="button" class="btn btn-sm btn-danger" onclick="removeCourse(${index})">x</button>
-            </div>
-        `;
-    });
-}
-
-function removeCourse(index) {
-    courses.splice(index, 1);
-    renderCourses();
-    syncToHiddenInput();
-}
-
-function syncToHiddenInput() {
-    document.getElementById('coursesData').value = JSON.stringify(courses);
-}
-
-function submitForm()
-{
-  let name = document.getElementById('faculity_name').value;
-  console.log(courses);
-  if (name){
-
-      axios.post('/admin/departament/create', {
-            
-            name: name,
-            courses: courses
-        }
-      )
-      .then(response => {
-    
-          console.log(response.data);
-    
-          courses = [];
-          document.getElementById('faculity_name').value = '';
-          renderCourses();
-          alert("Muvafiqiyatli saqlandi")
-    
-      })
-      .catch(error => {
-        alert(error)
-      })
-
-  window.location.reload();
-  }
-
-  else {
-    alert("Fakultet nomi kiritilmagan!");
-  }
-}
-  </script>
-
-
-<script>
-    
-    function getDepartament()
-        {
-            let departaments = [];
-            let select = document.getElementById('departament_id');
-            axios.get('/admin/departament/json').then(
-                response => {
-                    
-                    response.data.forEach(element => {
-                        let option = document.createElement('option');
-                        option.value = parseInt(element.id);
-                        option.textContent = element.name
-                        select.appendChild(option);
-                    });
-                }
-            )
-        }
-    </script>
 @endsection

@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use app\Services\ScheduleService;
+use App\Models\Course;
+use App\Services\DayService;
+use App\Services\ScheduleService;
 use Illuminate\Http\Request;
 use App\Services\StudentService;
 use App\Services\SemesterService;
 use App\Services\TaskService;
+use App\Services\GroupService;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
     
      public function __construct(
-        private StudentService $studentService,
+        
         protected readonly ScheduleService $scheduleService,
         protected readonly SemesterService $semesterService,
-        protected readonly TaskService $taskService
+        protected readonly TaskService $taskService,
+        protected readonly GroupService $groupService,
+        protected readonly DayService $dayService,
+        protected readonly StudentService $studentService
+
         ) {}
-
-
-
     
     public function index()
     {      
@@ -30,28 +34,45 @@ class StudentController extends Controller
     public function subjects(int $semester_id = null)
     {
         $group = Auth::user()->student->group;
-      
+     
         return view('student-views.subjects', [
-            'schedules' => $this->scheduleService->getScheduleByGroup($group->id, $semester_id)->get(),
-            'semesters' => $this->semesterService->all(),
-            'group' => $group->id
-            ]);
-
+            'courses' => $this->studentService->getSubjects(Auth::user()->student->id)->group->courses,
+            'group' => $group->id,
+            'semesters' => $this->semesterService->all()
+        ]);
     }
-
-
     public function subjectSelect()
     {
         return view('student-views.subject-select');
     }
 
-    public function subjectDetail(int $id)
+    public function subjectDetail(Course $course)
     {
 
         return view('student-views.subject-detail', 
         [
-            "tasks" => $this->taskService->getTasksBySubject($id)->get(),
-            "indicators" => $this->taskService->indicators($id)
+            "tasks" => $course->tasks,
+            "indicators" => $this->taskService->indicators($course->id)
+        ]);
+    }
+
+    public function schedule()
+    {
+        $group = Auth::user()->student->group;
+        return view('student-views.schedule', 
+            ['group_semesters' => $group->group_semesters]
+        );
+    }
+
+
+    public function scheduleDetail(int $group_semester_id)
+    {
+        $group_semester = $this->groupService->findByIdGroupSemester($group_semester_id);
+        return view('student-views.schedule-detail', [
+            "schedules" => $this->scheduleService->getScheduleByGroupSemester($group_semester->id)['schedulesMap'] ?? [],
+            'pairs' => $this->scheduleService->getScheduleByGroupSemester($group_semester->id)['pairs'] ?? [],
+            'days' => $this->dayService->days(),
+            'group_semester' => $group_semester
         ]);
     }
 

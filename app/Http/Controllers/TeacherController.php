@@ -22,7 +22,7 @@ class TeacherController extends Controller
 
     public function subjects()
     {
-        return view('teacher.subjects', ['schedules' => Auth::user()->teacher->schedules]);
+        return view('teacher.subjects', ['courses' => Auth::user()->teacher->courses]);
     }
 
 

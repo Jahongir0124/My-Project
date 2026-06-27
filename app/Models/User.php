@@ -22,7 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        "lang"
     ];
 
     /**
@@ -58,5 +59,10 @@ class User extends Authenticatable
     public function teacher()
     {
         return $this->hasOne(Teacher::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 }

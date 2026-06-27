@@ -50,26 +50,25 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Nomi</th>
+                          <th class="text-center">Fan nomi</th>
                           <th class="text-center">Guruh</th>
-                          <th class="text-center">Vazifalar</th>
-                          <th class="text-center">Sana/kun/soat</th>
-                            
+                          <th class="text-center">Semester</th>
+                          <th class="text-center">Vazifalar</th>      
                           <th class="text-center">Vazifalar qo'shish</th>
                   
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($schedules as $schedule)
+                        @foreach ($courses as $course)
                             
                           <tr class="align-middle">
                           <td class="text-center">{{ $loop->index + 1}}</td>
-                          <td class="text-center">{{ $schedule->course->name}}</td>
-                          <td class="text-center">{{ $schedule->group->name}}</td>
-                          <td class="text-center"><a href="{{ route('teacher.subject.tasks', ['schedule' => $schedule]) }}" class="btn btn-primary mb-2 " >{{ $schedule->tasks->count()}}</a></td>
-                          <td class="text-center">{{ $schedule->day}}/{{$schedule->start_time}}-{{$schedule->end_time}}</td>
+                          <td class="text-center">{{ $course->name}}</td>
+                          <td class="text-center">{{ $course->group->name}}</td>
+                          <td class="text-center">{{ $course->semester->name}}</td>
+                          <td class="text-center"><a href="{{ route('teacher.subject.tasks', ['course' => $course]) }}" class="btn btn-primary mb-2 " >{{ $course->tasks->count()}}</a></td>
                           <td class="text-center">
-                            <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $schedule->id}}"  data-bs-target="#createTask"   class="btn btn-primary mb-2"><i class="bi bi-plus-lg"></i></button>
+                            <button id="createTaskBtn" data-bs-toggle="modal" data-id="{{ $course->id }}"  data-bs-target="#createTask"   class="btn btn-primary mb-2"><i class="bi bi-plus-lg"></i></button>
                             </td>                   
                           </tr>
                         @endforeach
@@ -98,7 +97,7 @@
         @csrf
       
         <div class="modal-body">
-            <input id="scheduleId" type="hidden" name="schedule_id">
+            <input id="courseId" type="hidden" name="course_id">
           <div class="mb-3">
             <label>Vazifa nomi</label>
             <input  type="text" name="name"  class="form-control" required>
@@ -147,12 +146,12 @@
 @endif
 <script>
 
-  document.querySelectorAll('#editGroupBtn').forEach(button => {
+  document.querySelectorAll('#createTaskBtn').forEach(button => {
       button.addEventListener('click', function () {
 
           let id = this.dataset.id;
           console.log(id);
-          document.getElementById('scheduleId').value = id;
+          document.getElementById('courseId').value = id;
           
        
 

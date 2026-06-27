@@ -48,4 +48,10 @@ class SemestrController extends Controller
   {
     return response()->json($this->semesterService->all());
   }
+
+  public function usedSemester(Request $request)
+  {
+      return response()->json($this->semesterService->getUsedSemesterGroup($request->groupId));
+  }
+  
 }

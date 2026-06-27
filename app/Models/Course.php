@@ -7,13 +7,33 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
     
-    protected $fillable = ['name', 'description', 'score_course', 'departament_id'];
+    protected $fillable = ['name', 'description', 'teacher_id', 'score_course', 'group_id', 'semester_id', 'is_active'];
 
-  
+    
 
-    public function departament()
+    public function group()
     {
-        return $this->belongsTo(Departament::class);
+        return $this->belongsTo(Group::class);
+    }
+
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 
    

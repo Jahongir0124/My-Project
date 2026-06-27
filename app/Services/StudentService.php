@@ -73,9 +73,9 @@ class StudentService
         $this->studentRepository->update($id, $student);
     }
 
-    public function getSubjects()
+    public function getSubjects($studentId)
     {
-        
+        return $this->studentRepository->getCourseData($studentId);
     }
 
   

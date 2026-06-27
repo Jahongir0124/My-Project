@@ -8,11 +8,11 @@ class Task extends Model
 {
     
 
-    protected $fillable = ['name', 'schedule_id', 'deadline', 'score', 'file', 'file_name'];
+    protected $fillable = ['name', 'course_id', 'deadline', 'score', 'file', 'file_name'];
 
-    public function schedule()
+    public function course()
     {
-        return $this->belongsTo(Schedule::class);
+        return $this->belongsTo(Course::class);
     }
 
 

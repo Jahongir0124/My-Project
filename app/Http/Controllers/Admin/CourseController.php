@@ -35,11 +35,16 @@ class CourseController extends Controller
     }
     public function create()
     {
-        return view('admin.course-create', ["departements" => $this->departamentService->all()]);
+        return view('admin.course-create', [
+            "groups" => $this->groupService->groups()->get(),
+            'semesters' => $this->semesterService->all(),
+            'teachers' => $this->teacherService->all()
+            ]);
     }
     public function store(CourseRequest $request)
     
     {
+        
         $this->courseService->create($request->validated());
         return redirect()->route('admin.courses.index')->with('succses', "Created Succesfully");
     }

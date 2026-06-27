@@ -80,6 +80,20 @@ class StudentRepository {
     }
 
 
+    public function getCourseData($studentId)
+    {
+        return Student::with([
+            'group.courses' => function ($query) use ($studentId) {
+                $query->withCount([
+                    'attendances as count_attendance' => function ($q) use ($studentId){
+                        $q->where('student_id', $studentId);
+                    }
+                ]);
+            }
+        ])->find($studentId);
+    }
+
+
    
 }
 

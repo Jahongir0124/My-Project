@@ -3,6 +3,7 @@
 
 namespace app\Services;
 
+use app\Repositories\CourseRepository;
 use App\Repositories\ScheduleRepository;
 use App\Repositories\TaskAnswerRepository;
 use App\Repositories\TaskRepository;
@@ -18,7 +19,8 @@ class TaskService
     public function __construct(
         protected readonly TaskRepository $taskRepository,
         protected readonly ScheduleRepository $scheduleRepository,
-        protected readonly TaskAnswerRepository $taskAnswerRepository
+        protected readonly TaskAnswerRepository $taskAnswerRepository,
+        protected readonly CourseRepository $courseRepository
         ){}
 
 
@@ -28,15 +30,15 @@ class TaskService
         return $this->taskRepository->getTasksBySubject($subject_id);
     }
 
-    public function checkScore(int $schedule_id)
+    public function checkScore(int $course_id)
         {
             $sum = 0;
-            $schedule = $this->scheduleRepository->findById($schedule_id);
-            foreach($schedule->tasks as $task)
+            $course = $this->courseRepository->findById($course_id);
+            foreach($course->tasks as $task)
                 {
                     $sum += $task->score;
                 }
-            return ['score' => $schedule->course->score_course - $sum];
+            return ['score' => $course->score_course - $sum];
         }
 
     public function store($data)
@@ -53,7 +55,7 @@ class TaskService
                 $path = null;
             }
 
-        $scoreMax = ($this->checkScore($data['schedule_id']))['score'];
+        $scoreMax = ($this->checkScore($data['course_id']))['score'];
        
         if ($scoreMax < $data['score'] || $data['score'] == 0)
             {
@@ -69,10 +71,12 @@ class TaskService
     {
         $data = $request->validate([
             "id" => "required|integer|exists:tasks,id",
+            'name' => 'required|string',
             "deadline" => "required|date",
             "file" => "nullable|file|mimes:pdf,docx,xlsx,zip,rar,jpg,png",
             "score" => "nullable|integer"
         ]);
+     
         if ($request->hasFile('file'))
             {
                 $task = $this->taskRepository->findById($data['id']);
@@ -105,7 +109,12 @@ class TaskService
         $tasksScores = $this->taskRepository->getSumScoreOfTask($taskIds)->get();
         $totalScore = $tasksScores->sum('score');
         $total = $taskAnswers->sum('rating.score');
-        $result = round($total/$totalScore, 3)*100;
+        $result = 0;
+        if ($totalScore)
+            {
+
+                $result = round($total/$totalScore, 3)*100;
+            }
         $rating = 0;
         if (60 <= $result && $result < 70)
             {

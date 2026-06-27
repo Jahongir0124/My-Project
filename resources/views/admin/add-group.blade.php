@@ -6,7 +6,7 @@
     <div class="card card-info card-outline mb-4">
                     <!--begin::Header-->
                     <div class="card-header text-center">
-                        <div class="card-title ">Yangi guruh qo'shish</div>
+                        <div class="card-title ">{{ __("Yangi guruh qo'shish") }}</div>
                     </div>
                     <!--end::Header-->
                     <!--begin::Form-->
@@ -18,12 +18,12 @@
                         <div class="row g-5">
                             <!--begin::Col-->
                             <div class="col-md-6">
-                            <label for="validationCustom01" class="form-label">Guruh nomi</label>
+                            <label for="validationCustom01" class="form-label">{{ __("Guruh nomi") }}</label>
                             <input
                                 type="text"
                                 class="form-control"
                                 id="validationCustom01"
-                                placeholder="Guruh nomi yoki nomeri"
+                                placeholder={{__("Guruh nomi")}}
                                 name="name"
                                 required
                             />
@@ -31,9 +31,9 @@
                             </div>
                           
                             <div class="col-md-6">
-                            <label for="validationCustom04" class="form-label">Fakultet</label>
+                            <label for="validationCustom04" class="form-label">{{ __("Fakultet nomini kiriting") }}</label>
                             <select name="departament_id" class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Tanlang...</option>
+                                <option selected disabled value="">{{ __("Tanlang") }}</option>
                                 @foreach ($departaments as $departament )
                                     <option value="{{ $departament->id }}">{{ $departament->name}}</option>
                                 @endforeach
@@ -42,7 +42,7 @@
                             </div>
                             <!--end::Col-->
                             <div class="col-md-6">
-                                 <label for="validationCustom01" class="form-label">Guruhga qo'shiladigan talabalar soni</label>
+                                 <label for="validationCustom01" class="form-label">{{ __("Guruhga qo'shiladigan talabalar soni") }}</label>
                             <input
                                 type="number"
                                 class="form-control"
@@ -66,7 +66,7 @@
                         <!--end::Body-->
                         <!--begin::Footer-->
                         <div class="card-footer">
-                        <button class="btn btn-primary" type="submit">Saqlash</button>
+                        <button class="btn btn-primary" type="submit">{{ __("Saqlash") }}</button>
                         </div>
                         <!--end::Footer-->
                     </form>

@@ -37,5 +37,11 @@ class UserRepository
 
     }
 
+
+    public function update($data, $path)
+    {
+       
+    }
+
     
 }

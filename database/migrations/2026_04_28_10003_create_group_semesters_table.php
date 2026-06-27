@@ -13,15 +13,13 @@ return new class extends Migration
     {
         Schema::create('group_semesters', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('semester_id')->constrained()->onDelete('cascade');
-            $table->foreignId('group_id')->constrained()->onDelete('cascade');
+            $table->foreignId('group_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('semester_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('shift_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('group_semesters');

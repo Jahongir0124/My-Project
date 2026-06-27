@@ -20,4 +20,15 @@ class Group extends Model
         return $this->belongsTo(Departament::class);
     }
 
+    public function group_semesters()
+    {
+        return $this->hasMany(GroupSemester::class);
+    }
+
+    public function courses()
+    { 
+        return $this->hasMany(Course::class);
+    }
+    
+
 }

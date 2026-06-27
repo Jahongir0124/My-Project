@@ -19,7 +19,6 @@ class TeacherRepository
     public function create(array $data)
     {
         $teacher = Teacher::create($data);
-
         return $teacher;
     }
 
@@ -63,7 +62,6 @@ class TeacherRepository
                     {
                         $query->orderBy('created_at', 'asc');
                     }
-
                 else 
                     {
                         $query->orderBy('created_at', 'desc');

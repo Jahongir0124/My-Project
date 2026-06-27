@@ -10,9 +10,9 @@ use App\Models\Task;
 
 class TaskRepository
 {
-    public function getTasksBySubject(int $subject_id)
+    public function getTasksBySubject(int $course_id)
     {
-        return Task::where('schedule_id', $subject_id);
+        return Task::where('course_id', $course_id);
     }
 
     public function store(array $data, string $path = null)

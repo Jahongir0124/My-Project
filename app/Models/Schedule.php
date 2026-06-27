@@ -9,8 +9,8 @@ class Schedule extends Model
     
 
     protected $fillable = [
-    'group_id', 'semester_id', 'teacher_id', 'course_id',
-    'day', 'start_time', 'end_time' 
+    'group_semester_id', 'course_id',
+    'day_id', 'pair_id'
     ];
 
 
@@ -23,10 +23,7 @@ class Schedule extends Model
     ];
 
 
-    public function group()
-    {
-        return $this->belongsTo(Group::class);
-    }
+   
 
     public function course()
     {
@@ -38,10 +35,15 @@ class Schedule extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function semester()
+    public function day()
     {
-        return $this->belongsTo(Semester::class);
+        return $this->belongsTo(Day::class);
     }
+    public function pair()
+    {
+        return $this->belongsTo(Pair::class);
+    }
+   
 
     public function tasks()
     {

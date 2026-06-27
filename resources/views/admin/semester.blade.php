@@ -8,27 +8,25 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Semester qo'shish</h5>
+        <h5 class="modal-title">{{ __("Semester qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      
-    {{-- Modal Semester Create --}}
       <form id="form_create" action="{{ route('admin.semester.create') }}" method="POST">
               @csrf
 
               <div class="modal-body">
 
                   <div class="mb-3">
-                      <label>Semester nomini kiriting nomi</label>
+                      <label>{{ __("Semester nomini kiriting") }}</label>
                       <input id="faculity_name" type="text" name="name" class="form-control">
                   </div>
 
                   <div class="mb-3">
-                    <label>Semester boshlanish vaqti</label>
+                    <label>{{ __("Semester boshlanish vaqti") }}</label>
                     <input id="start_date" type="date" name="start_date" class="form-control">
                   </div>
                   <div class="mb-3">
-                    <label>Semester tugash vaqti</label>
+                    <label>{{ __("Semester tugash vaqti") }}</label>
                     <input id="end_date" type="date" name="end_date" class="form-control">
                   </div>
 
@@ -41,7 +39,7 @@
               </div>
 
               <div class="modal-footer">
-                  <button type="button" onclick="submitForm()" class="btn btn-primary">Saqlash</button>
+                  <button type="button" onclick="submitForm()" class="btn btn-primary">{{ __("Saqlash") }}</button>
               </div>
 
 </form>
@@ -50,22 +48,12 @@
     </div>
   </div>
 </div>
-
-
-
- 
   <div class="app-content-header">
           <!--begin::Container-->
           
           <div class="container-fluid">
             <div class="row g-4">
     <div class="card card-info card-outline mb-4">
-                    <!--begin::Header-->
-                      
-                    <!--end::Header-->
-                    <!--begin::Form-->
-                   
-                    <!--end::Form-->
                     </div>
                 </div>
 
@@ -75,7 +63,7 @@
                
                
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
-                    Yangi Semestr qo'shish
+                    {{ __("Yangi Semestr qo'shish") }}
                 </button>
               </div>
               <div class="col-sm-6">
@@ -105,14 +93,14 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Semester nomi</th>
+                          <th class="text-center">{{ __("Semester nomi") }}</th>
 
-                          <th class="text-center">Faol vaqti</th>
-                          <th class="text-center">Description</th>
+                          <th class="text-center">{{ __("Faol vaqti") }}</th>
+                          <th class="text-center">{{ __("Description") }}</th>
 
 
-                          <th class="text-center">Tahrirlash</th>
-                          <th class="text-center">O'chirish</th>
+                          <th class="text-center">{{ __("Tahrirlash") }}</th>
+                          <th class="text-center">{{ __("O'chirish") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -140,18 +128,8 @@
                       </tbody>
                     </table>
                   </div>
-                  <!-- /.card-body -->
-                  
-                 
                 </div>
-                <!-- /.card -->
-
-          
-                <!-- /.card -->
               </div>
-              <!-- /.col -->
-             
-              <!-- /.col -->
             </div>
             <!--end::Row-->
           </div>
@@ -164,7 +142,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
+        <h5 class="modal1-title">{{ __("Semesterni tahrirlash") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -178,15 +156,15 @@
             
             <input id="semester_id" type="hidden" name="id">
              <div class="mb-3">
-                  <label>Semester nomini kiriting nomi</label>
+                  <label>{{ __("Semester nomini kiriting") }}</label>
                   <input id="semester_name" type="text" name="name"  class="form-control">
             </div>
             <div class="mb-3">
-              <label>Semester boshlanish vaqti</label>
+              <label>{{ __("Semester boshlanish vaqti") }}</label>
               <input id="start_date" type="date" name="start_date"  class="form-control">
             </div>
             <div class="mb-3">
-              <label>Semester tugash vaqti</label>
+              <label>{{ __("Semester tugash vaqti") }}</label>
               <input id="end_date" type="date" name="end_date"  class="form-control">
             </div>
         

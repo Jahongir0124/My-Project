@@ -7,7 +7,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Yangi o'qituvchi qo'shish</h5>
+        <h5 class="modal-title">{{ __("O'qituvchi qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -18,12 +18,12 @@
               <div class="modal-body">
                  <div class="row g-5">
                     <div class="col-md-6">
-                    <label>Foydalanuvchi nomi</label>
+                    <label>{{ __("Foydalanuvchi nomi") }}</label>
                     <input  type="text" name="name" class="@error('name') is-invalid @enderror form-control" >
                    
                 </div>
                 <div class="col-md-6">
-                    <label>Elektron pochta</label>
+                    <label>{{ __("Elektron pochta") }}</label>
                     <input  type="email" name="email" class="form-control" >
                 </div>
                 @error('email')

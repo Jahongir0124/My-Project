@@ -35,12 +35,23 @@ class SemesterRepository
 
     public function destroy(int $id): bool
     {
-        $semesnter = Semester::findOrFail($id);
-        return $semesnter->delete();
-        
+        return Semester::findOrFail($id)->delete();
+    }
+    public function getSemesterById($id)
+    {
+        return Semester::findOrFail($id);
+    }
+    public function getUsedSemesterGroup($ids)
+    {
+        return Semester::whereNotIn('id', $ids)->get();
     }
 
-    public function getSemesterById($id)
+    public function getActiveSemester()
+    {
+        return Semester::where('is_ative', 1)->first();
+    }
+
+    public function findById(int $id)
     {
         return Semester::findOrFail($id);
     }
