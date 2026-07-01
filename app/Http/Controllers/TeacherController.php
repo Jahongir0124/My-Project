@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class TeacherController extends Controller
 {
 
-
-
-
-    public function __construct(protected readonly ScheduleService $scheduleService){}
+    public function __construct(protected readonly ScheduleService $scheduleService) {}
     public function index()
     {
         return view('teacher.dashboard');
@@ -26,11 +23,5 @@ class TeacherController extends Controller
     }
 
 
-    public function taskCrete()
-    {
-        
-    }
-
-
-   
+    public function taskCrete() {}
 }

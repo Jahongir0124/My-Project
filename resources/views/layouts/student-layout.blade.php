@@ -249,7 +249,7 @@
               </li>
               
                <li class="nav-item">
-                <a href="#" class="nav-link {{ request()->routeIs('admin.courses.index') ? 'active': ''}}">
+                <a href="{{ route('student.exams') }}" class="nav-link {{ request()->routeIs('student.exams') ? 'active': ''}}">
                   <i class="nav-icon bi bi-clipboard"></i>
                   <p>Imtixonlar</p>
                 </a>

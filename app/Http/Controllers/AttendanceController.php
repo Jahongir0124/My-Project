@@ -15,11 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendanceController extends Controller
 {
-    
+
     public function __construct(
-        
-        protected readonly AttendanceService $attendanceService)
-    {}
+
+        protected readonly AttendanceService $attendanceService
+    ) {}
 
     public function create(Course $course)
     {
@@ -38,7 +38,7 @@ class AttendanceController extends Controller
     public function index()
     {
         return view(
-            'teacher.attendance', 
+            'teacher.attendance',
             [
                 "courses" => Auth::user()->teacher->courses
             ]
@@ -55,7 +55,4 @@ class AttendanceController extends Controller
             ]
         );
     }
-
-
-
 }

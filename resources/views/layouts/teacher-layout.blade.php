@@ -248,7 +248,7 @@
                 </a>
               </li>
                 <li class="nav-item">
-                <a href="#" class="nav-link {{ request()->routeIs('admin.schedule.index') ? 'active': '' }}">
+                <a href="{{ route('teacher.exams') }}" class="nav-link {{ request()->routeIs('teacher.exams') ? 'active': '' }}">
                   <i class="nav-icon bi bi-clipboard2-data"></i>
                   <p>Imtixonlar</p>
                 </a>

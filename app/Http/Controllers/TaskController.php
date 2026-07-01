@@ -11,11 +11,11 @@ use app\Services\ScheduleService;
 
 class TaskController extends Controller
 {
-    
+
     public function __construct(
         protected readonly TaskService $taskService,
         protected readonly ScheduleService $scheduleService
-        ){}
+    ) {}
 
 
     public function tasksBySubject(Course $course)
@@ -23,7 +23,7 @@ class TaskController extends Controller
         return view('teacher.tasks', [
             'tasks' => $course->tasks,
             'course' => $course->id
-            ]);
+        ]);
     }
     public function store(TaskRequest $request)
     {

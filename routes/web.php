@@ -14,9 +14,13 @@ use App\Http\Controllers\Admin\TeacherManagementController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\Admin\ShiftController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\ExamAttempController;
+use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TaskAnswerController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeacherController;
+use App\Models\Exam;
 
 Route::get('/', [AuthController::class, 'loginView'])->name('login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login-auth');
@@ -88,7 +92,10 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::put('task/answer/update', [TaskAnswerController::class, 'update'])->name('taskAnswer.update');
     Route::get('schedule/', [StudentController::class, 'schedule'])->name('schedule.index');
     Route::get('schedule/detail/{group_semester_id}', [StudentController::class, 'scheduleDetail'])->name('schedule.detail');
-
+    Route::get('exams/', [StudentController::class, 'exams'])->name('exams');
+    Route::get('exam/begin/{exam}', [ExamController::class, 'beginExam'])->name('exam.begin');
+    Route::post('exam/check', [ExamController::class, 'checkExam'])->name('exam.check');
+    Route::get('exam/result/{attemp_id}', [ExamAttempController::class, 'resultExam'])->name('exam.result');
 });
 
 //TeacherController Routes
@@ -108,5 +115,14 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('attendance/create/{course}', [AttendanceController::class, 'create'])->name('attendance.create');
     Route::post('attendance/store', [AttendanceController::class, 'store'])->name('attendance.store');
     Route::get('subject/lesson/{course}', [AttendanceController::class, 'getAttendanceByCourse'])->name('subject.lessons');
-
+    Route::get('exams/', [ExamController::class, 'examByTeacher'])->name('exams');
+    Route::post('exam/store/', [ExamController::class, 'store'])->name('exam.store');
+    Route::put('exam/update/', [ExamController::class, 'edit'])->name('exam.edit');
+    Route::post('exam/destroy/{exam}', [ExamController::class, 'destroy'])->name('exam.destroy');
+    Route::get('exam/add-question/{exam}', [ExamController::class, 'addQuestion'])->name('exam.addQuestion');
+    Route::post('question/store', [QuestionController::class, 'store'])->name('question.store');
+    Route::get('questions/{exam}', [ExamController::class, 'getQuestions'])->name('questions');
+    Route::post('question/destroy/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+    Route::post('question/import', [QuestionController::class, 'import'])->name('question.import');
+    
 });

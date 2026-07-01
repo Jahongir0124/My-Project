@@ -10,15 +10,15 @@ use App\Services\TaskAnswerService;
 class TaskAnswerController extends Controller
 {
 
-    public function __construct(protected readonly TaskAnswerService $taskAnswerService){}
+    public function __construct(protected readonly TaskAnswerService $taskAnswerService) {}
 
 
     public function store(TaskAnswerRequest $request)
     {
-        
+
         $this->taskAnswerService->store($request->validated());
         return redirect()->back()->with('success', 'Cretaed');
-    }   
+    }
 
 
     public function update(Request $request)

@@ -28,7 +28,7 @@
               <div class="auth-cover-wrapper bg-primary-100">
                 <div class="auth-cover">
                   <div class="title text-center">
-                    <h1 class="text-primary mb-10">LMS - Learing Management System</h1>
+                    <h1 class="text-primary mb-10">Education Platform</h1>
                   
                   </div>
                   <div class="cover-image">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('time')->default(0);
             $table->integer('count_question')->default(0);
             $table->date('date_of_exam')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

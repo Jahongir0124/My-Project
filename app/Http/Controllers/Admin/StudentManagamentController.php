@@ -19,7 +19,7 @@ class StudentManagamentController extends Controller
         protected readonly StudentService $studentService,
         protected readonly GroupService $groupService,
         protected readonly DepartamentService $departamentService
-        ) {}
+    ) {}
 
 
 
@@ -40,7 +40,7 @@ class StudentManagamentController extends Controller
 
 
         $request->validate([
-        'file' => 'required|file|mimes:xlsx,csv'
+            'file' => 'required|file|mimes:xlsx,csv'
         ]);
         $file = $request->file('file');
         $spreadsheet = IOFactory::load($file->getPathname());
@@ -53,8 +53,6 @@ class StudentManagamentController extends Controller
         $this->studentService->import($rows, $headers);
 
         return redirect()->back()->with('success', 'Created');
-
-        
     }
 
 
@@ -62,7 +60,7 @@ class StudentManagamentController extends Controller
     {
         $this->studentService->store($request->validated());
         return redirect()->back()->with('success', 'Created');
-    }   
+    }
 
 
     public function destroy(int $id)
@@ -79,10 +77,8 @@ class StudentManagamentController extends Controller
             "last_name" => "required|string",
             "patrnomic" => "nullable|string"
         ]);
-      
+
         $this->studentService->update($data);
         return redirect()->back()->with('success', 'Updated');
-
-
     }
 }
