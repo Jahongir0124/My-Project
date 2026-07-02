@@ -51,6 +51,7 @@ class StudentController extends Controller
     public function subjectDetail(Course $course)
     {
 
+        $this->taskService->checkDeadline($course->tasks);
         return view(
             'student-views.subject-detail',
             [
@@ -83,11 +84,13 @@ class StudentController extends Controller
 
     public function exams()
     {
-        $exams = $this->examService->examsByGroup(Auth::user()->student->group->id);
+        $exams = $this->examService->examsByStudent();
+
+      
         return view('student-views.exams', [
             'exams' => $exams
         ]);
-    }
+    } 
 
     
 }

@@ -167,9 +167,10 @@
                           @else
                             <td class="text-center">Fayl mavjud emas</td>
                           @endif
-                          <td class="text-center">{{ $task->deadline}}</td>
+                          <td class="text-center">{{ \Carbon\Carbon::parse($task->deadline)->format('d.m.Y')}}</td>
                           <td class="text-center">{{ $task->task_answer->rating->score ?? '0'}}/{{ $task->score}}</td>                       
                           <td class="text-center">
+                          @if ($task->status)
                             @if ($task->task_answer)
                               @if ($task->task_answer->rating)
                               <a class="btn btn-primary" href="{{ asset('storage/' . $task->task_answer->file_answer)}}" download>{{ $task->task_answer->file_name }}</a>
@@ -180,6 +181,18 @@
                             @else
                               <button id="editGroupBtn" data-bs-toggle="modal" data-id="{{ $task->id }}"  data-bs-target="#createTaskAnswer"   class="btn btn-primary mb-2">+</button>
                             @endif
+                          @else
+                              @if ($task->task_answer)
+                                @if ($task->task_answer->rating)
+                                <a class="btn btn-primary" href="{{ asset('storage/' . $task->task_answer->file_answer)}}" download>{{ $task->task_answer->file_name }}</a>
+                                @else
+                                <a class="btn btn-primary" href="{{ asset('storage/' . $task->task_answer->file_answer)}}" download>{{ $task->task_answer->file_name }}</a>
+                              
+                                @endif
+                            @else
+                              <button class="btn btn-danger mb-2">Muddati o'tib ketgan</button>
+                            @endif
+                          @endif
                             </td>  
                                    
                         </tr>

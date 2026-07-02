@@ -123,4 +123,21 @@ class TaskService
             "rating" => $rating
         ];
     }
+
+    public function checkDeadline(object $tasks)
+    {
+        foreach($tasks as $task)
+            {
+                if(now()->greaterThan($task->deadline))
+                    {
+                        $task['status'] = false;
+                    }
+                else{
+                    
+                    $task['status'] = true;
+                }
+            }
+
+        return $tasks;
+    }
 }

@@ -17,7 +17,11 @@ class Exam extends Model
         'score'
     ];
 
-
+    protected $appends = ['status'];
+    public function getStatusAttribute()
+    {
+        return $this->deadline->isFuture();
+    }
     public function course()
     {
         return $this->belongsTo(Course::class);

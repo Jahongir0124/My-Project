@@ -20,6 +20,7 @@ class ExamAttempRepository
     {
         $attempt = ExamAttemp::findOrFail($data['id']);
         $attempt->score = $data['score'];
+        $attempt->correct_count = $data['correct_count'];
         $attempt->finished_at = now();
         $attempt->save();
         return $attempt;

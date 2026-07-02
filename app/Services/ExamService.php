@@ -83,14 +83,25 @@ class ExamService
                             }
                     }
             }
+        
+        $exam = $this->examRepository->findById($request->exam_id);
+
+        $result = ($exam->score/$exam->count_question)*$score;
         $attempt = $this->examAttempRepository->update([
             'id' => $request->attempt,
-            'score' => $score,
+            'score' => $result,
+            'correct_count' => $score
         ]);
 
         return $attempt;
 
 
+    }
+
+
+    public function examsByStudent()
+    {
+        return $this->examRepository->examsByStudent(Auth::user()->student->id);
     }
 }
 

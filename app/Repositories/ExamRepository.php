@@ -32,6 +32,16 @@ class ExamRepository
             $query->where('group_id', $group_id);
         })->with('course')->get();
     }
+
+    public function examsByStudent(int $student_id)
+    {
+        return Exam::with([
+            'course',
+            'examAttempts' => fn($q) =>
+            $q->where('student_id', $student_id)
+        ])->get();
+
+    }
     public function edit(array $data)
     {
         $exam = Exam::findOrFail($data['id']);

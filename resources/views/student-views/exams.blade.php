@@ -51,7 +51,7 @@
                                         <th class="text-center">Imtixon turi</th>
                                         <th class="text-center">Fan nomi</th>
                                         <th class="text-center">Vaqti</th>
-                                        <th class="text-center">Baho</th>
+                                        <th class="text-center">Ball</th>
                                         <th class="text-center">Boshlash</th>
 
                                     </tr>
@@ -65,8 +65,12 @@
                                             <td class="text-center">{{ $exam->course->name }}</td>
                                             <td class="text-center">
                                                 {{ \Carbon\Carbon::parse($exam->date_of_exam)->format('Y-m-d H:m') }}</td>
-                                            <td class="text-center">0</td>
-                                            @if ($exam->type == 'test')
+                                            @if ($exam->examAttempts->isNotEmpty())
+                                                <td class="text-center">{{ $exam->examAttempts[0]->score }}</td>
+                                            @else
+                                                <td class="text-center"></td>
+                                            @endif
+                                            @if ($exam->type == 'test' && !$exam->examAttempts->isNotEmpty())
                                                 <td class="text-center"><a
                                                         href="{{ route('student.exam.begin', ['exam' => $exam]) }}"
                                                         class="btn btn-primary mb-2 ">
@@ -74,7 +78,12 @@
 
                                                 </td>
                                             @else
-                                                <td class="text-center"></td>
+                                                <td class="text-center">
+                                                    <a href="{{ route('student.exam.result', ['attemp_id' => $exam->examAttempts[0]->id]) }}"
+                                                        class="btn btn-primary mb-2 ">
+                                                        Natijani ko'rish</a>
+
+                                                </td>
                                             @endif
                                         </tr>
                                     @endforeach

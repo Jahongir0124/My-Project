@@ -34,7 +34,7 @@ class ExampAttempService
         $course = $exam->course->name;
         $exam_name = $exam->name;
         $count_question = $exam->count_question;
-        $count_correct = $attempt->score;
+        $count_correct = $attempt->correct_count;
         $count_incorrect = $count_question - $count_correct;
         $procent = ($count_correct/$count_question)*100;
         $score = ($exam->score/$count_question)*$count_correct;

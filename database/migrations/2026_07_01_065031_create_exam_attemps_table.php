@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('exam_id')->constrained()->cascadeOnDelete();
             $table->foreignId('student_id')->constrained()->cascadeOnDelete();
+            $table->integer('correct_count')->default(0);
             $table->integer('score')->default(0);
             $table->timestamp('started_at');
             $table->timestamp('finished_at')->nullable();

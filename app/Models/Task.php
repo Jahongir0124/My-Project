@@ -10,6 +10,7 @@ class Task extends Model
 
     protected $fillable = ['name', 'course_id', 'deadline', 'score', 'file', 'file_name'];
 
+    protected $casts = ['deadline' => 'datetime'];
     public function course()
     {
         return $this->belongsTo(Course::class);
