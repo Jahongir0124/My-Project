@@ -82,7 +82,15 @@
     "Ismi kiriting": "Имя",
     "Familiya": "Фамилия",
     "Otasining ismi": "Отчество",
-    "Fanlar": "Предметы"
+    "Fanlar": "Предметы",
+    "Telefon nomeri": "Номер телефона",
+    "Parol kiriting": "Введите пароль",
+    "Parolni takrorlang": "Подвредите пароль",
+    "Ism": "Имя",
+    "Izoh! bu yerda faqat excel faylda va paramtrlari to'g'ri kiritilgan faylni yuklash mumkin! 1 ta faylni ichida 100-200 tagacha malumot yuklash mumkin!": "Примечание! Здесь можно загружать только Excel-файлы с корректно заполненными параметрами! В одном файле можно загрузить от 100 до 200 записей!",
+    "Namuna": "Образец",
+    "Studentlar": "Студенты"
+    
 
 
 }

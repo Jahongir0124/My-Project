@@ -45,11 +45,10 @@ class StudentRepository {
     public function update($id, $data)
     {
         $student = Student::findOrFail($id);
-        dd($student);
-        // $student['first_name'] = $data['first_name'];
-        // $student['last_name'] = $data['last_name'];
-        // $student['patrnomic'] = $data['patrnomic'];
-        // $student->save();
+        $student->first_name = $data['first_name'];
+        $student->last_name = $data['last_name'];
+        $student->patrnomic = $data['patrnomic'];
+        $student->save();
         return $student->fresh();
     }
 

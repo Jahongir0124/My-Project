@@ -9,15 +9,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Fayl yordamida talaba qo'shish</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ __("Talaba qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <span>Izoh! bu yerda faqat excel faylda va 
-            paramtrlari to'g'ri kiritilgan faylni yuklash mumkin!
-            1 ta faylni ichida 100-200 tagacha malumot yuklash mumkin!
+        <span>{{ __('messages.question_import_note') }}
         </span><br>
-        <a href="#">Namuna</a>
+        <a href="#">{{ __("Namuna") }}</a>
         <br>
         <br>
         <br>
@@ -25,13 +23,13 @@
         <form action="{{ route('admin.student.import') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupFile01">Fayl tanlash</label>
+            
             <input name="file" type="file" class="form-control" id="inputGroupFile01">
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
-            <button type="submit" class="btn btn-primary">Saqlash</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __("Yopish") }}</button>
+            <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
     </div>
 </form>
@@ -42,7 +40,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Yangi talaba qo'shish</h5>
+        <h5 class="modal-title">{{ __("Talaba qo'shish") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -53,12 +51,12 @@
               <div class="modal-body">
                  <div class="row g-5">
                     <div class="col-md-6">
-                    <label>Foydalanuvchi nomi</label>
+                    <label>{{ __("Foydalanuvchi nomi") }}</label>
                     <input  type="text" name="name" class="form-control" required>
                    
                 </div>
                 <div class="col-md-6">
-                    <label>Elektron pochta</label>
+                    <label>{{ __("Elektron pochta") }}</label>
                     <input  type="email" name="email" class="form-control" required >
                 </div>
                 @error('email')
@@ -66,28 +64,28 @@
                         </div>
                 @enderror
                   <div class="col-md-6">
-                      <label>Ismi kiriting</label>
+                      <label>{{ __("Ism") }}</label>
                       <input id="faculity_name" type="text" name="first_name" class="form-control" required >
                   </div>
                    <div class="col-md-6">
-                      <label>Familiya</label>
+                      <label>{{ __("Familiya") }}</label>
                       <input  type="text" name="last_name" class="form-control" required >
                   </div>
                    <div class="col-md-6">
-                      <label>Otasining ismi</label>
+                      <label>{{ __("Otasining ismi") }}</label>
                       <input  type="text" name="patrnomic" class="form-control" required >
                   </div>
 
                   <div class="col-md-6">
-                        <label for="validationCustom04" class="form-label">Guruh</label>
+                        <label for="validationCustom04" class="form-label">{{ __("Guruh") }}</label>
                             <select id="group_id" name="group_id" class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Tanlang...</option>
+                                <option selected disabled value="">{{ __("Tanlang") }}...</option>
                             
                             </select>
                   </div>
                    
                   <div class="col-md-6">
-                      <label>Parol kiriting</label>
+                      <label>{{ __("Parol kiriting") }}</label>
                       <input  type="password" name="password" class="form-control" required >
                   </div>
                   @error('password')
@@ -95,14 +93,14 @@
                         </div>
                     @enderror
                   <div class="col-md-6">
-                      <label>Parolni takrorlang</label>
+                      <label>{{ __("Parolni takrorlang") }}</label>
                       <input  type="password" name="password_confirmation" class="form-control" required >
                   </div>
 
               </div>
            
               <div class="modal-footer">
-                  <button type="submit"  class="btn btn-primary">Saqlash</button>
+                  <button type="submit"  class="btn btn-primary">{{ __("Saqlash") }}</button>
               </div>
                </div>
               
@@ -220,22 +218,18 @@
                
                
                 <button onclick="getDepartament()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createGroupModal">
-                    + Talaba qo'shish
+                    + {{ __("Talaba qo'shish") }}
                 </button>
                  <button  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Import
+                    {{ __("Import") }}
                 </button>
-                <button  class="btn btn-primary" >
-                    Eksport
-                </button>
-                 <button  class="btn btn-danger">
-                    Belgilganlarni o'chirish
-                </button>
+               
+               
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">O'qituvchilar</li>
+                  <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __("Dashboard") }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ __("Studentlar") }}</li>
                 </ol>
               </div>
             </div>
@@ -260,11 +254,11 @@
                         <tr>
                           <th class="text-center"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
                           <th class="text-center"> #</th>
-                          <th class="text-center">To'liq ismi</th>
-                          <th class="text-center">Guruhi</th>
+                          <th class="text-center">{{ __("To'liq ismi") }}</th>
+                          <th class="text-center">{{ __("Guruh") }}</th>
                           
-                          <th class="text-center">Tahrirlash</th>
-                          <th class="text-center">O'chirish</th>
+                          <th class="text-center">{{ __("Tahrirlash") }}</th>
+                          <th class="text-center">{{ __("O'chirish") }}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -317,7 +311,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Fakultet nomini tahrirlash</h5>
+        <h5 class="modal1-title">{{ __("Tahrirlash") }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -328,23 +322,23 @@
         <div class="modal-body">
 
           <div class="mb-3">
-            <label>Ismi</label>
+            <label>{{ __("Ism") }}</label>
             <input id="student_id" type="hidden" name="id">
             <input id="first_name" type="text" name="first_name"  class="form-control">
           </div>
           <div class="mb-3">
-            <label>Familiya</label>
+            <label>{{ __("Familiya") }}</label>
             <input id="last_name" type="text" name="last_name"  class="form-control">
           </div>
           <div class="mb-3">
-            <label>Otasini ismi</label>
+            <label>{{ __("Otasining ismi") }}</label>
             <input id="patrnomic" type="text" name="patrnomic"  class="form-control">
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
 
       </form>
