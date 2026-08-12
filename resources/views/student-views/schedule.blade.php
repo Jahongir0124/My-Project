@@ -15,8 +15,8 @@
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Dars jadvali</li>
+                  <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">{{ __("Dashboard") }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ __("Dars jadvali") }}</li>
                 </ol>
               </div>
             </div>
@@ -60,7 +60,7 @@
                         href="{{ route('student.schedule.detail', ['group_semester_id' => $group_semester->id]) }}"
                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                     >
-                        Ko'rish <i class="bi bi-link-45deg"></i>
+                       {{ __("Batafsil" )}}<i class="bi bi-link-45deg"></i>
                     </a>
                     </div>
                     <!--end::Small Box Widget 1-->

@@ -14,43 +14,43 @@
                         <!-- /.card-header -->
                         <div class="card-body">
 
-                            <h1 class="text-center">Sizning natijangiz</h1>
+                            <h1 class="text-center">{{ __("Sizning natijangiz") }}</h1>
                             <table class="table">
                                  <thead >  
                                 <tr class="text-center">
-                                    <td>Fan nomi</td>
+                                    <td>{{ __("Fan nomi") }}</td>
                                     <td><span class="total-question">{{ $course_name }}</span></td>
                                 </tr>
                                 <tr class="text-center">
-                                    <td>Imtixon</td>
+                                    <td>{{ __("Imtixon") }}</td>
                                     <td><span class="total-question">{{ $exam_name }}</span></td>
                                 </tr >
                                 <tr class="text-center">
-                                    <td>Savollar soni</td>
+                                    <td>{{ __("Savollar soni") }}</td>
                                     <td><span class="total-question">{{ $count }}</span></td>
                                 </tr>
 
                                 <tr class="text-center">
-                                    <td>To'gri javoblar soni</td>
+                                    <td>{{ __("To'gri javoblar soni") }}</td>
                                     <td><span class="total-correct">{{ $correct }}</span></td>
                                 </tr>
                                 <tr class="text-center">
-                                    <td>Xato javoblar soni</td>
+                                    <td>{{ __("Xato javoblar soni") }}</td>
                                     <td><span class="total-wrong">{{ $wrong }}</span></td>
                                 </tr>
                                 <tr class="text-center">
-                                    <td>Ko'rsatkich</td>
+                                    <td>{{ __("Ko'rsatkich") }}</td>
                                     <td><span class="percentenge">{{ $procent }}.00%</span></td>
                                 </tr>
                                 <tr class="text-center">
-                                    <td>Natijangiz</td>
+                                    <td>{{ __("Natijangiz") }}</td>
                                     <td><span class="total-score">{{ $score }}</span></td>
                                 </tr>
                             </thead>
                             </table>
                             <br>
                             <a href="{{ route('student.exams') }}" class="btn btn-primary">
-                                Imtixonlar ro'yxatiga qaytish</a>
+                                {{ __("Imtixonlar ro'yxatiga qaytish") }}</a>
                         </div>
                         <!-- /.card-body -->
 

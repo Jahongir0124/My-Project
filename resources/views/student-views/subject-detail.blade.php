@@ -34,7 +34,7 @@
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
 
       </form>
@@ -100,8 +100,8 @@
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Vazifalar</li>
+                  <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">{{ __("Dashboard") }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ __("Vazifalar") }}</li>
                 </ol>
               </div>
             </div>
@@ -126,10 +126,10 @@
                             <thead >        
                                 <tr class="text-center">
                                 
-                                        <td style="border: 1px solid rgb(139, 132, 132)">To'plangan ball</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">Ko'rsatkich</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">Maks ball</td>
-                                        <td style="border: 1px solid rgb(139, 132, 132)">O'zlashtirish</td>
+                                        <td style="border: 1px solid rgb(139, 132, 132)">{{ __("To'plangan ball") }}</td>
+                                        <td style="border: 1px solid rgb(139, 132, 132)">{{ __("Ko'rsatkich") }}</td>
+                                        <td style="border: 1px solid rgb(139, 132, 132)">{{ __("Maks ball") }}</td>
+                                        <td style="border: 1px solid rgb(139, 132, 132)">{{ __("O'zlashtirish") }}</td>
                                 </tr>
                                 <tr class="text-center">
                                 
@@ -148,11 +148,11 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Nomi</th>
-                          <th class="text-center">Fayli</th>
-                          <th class="text-center">Topshirish muddati</th>
-                          <th class="text-center">Ball</th>
-                          <th class="text-center">Vazifa yuklash</th>
+                          <th class="text-center">{{ __("Nomi") }}</th>
+                          <th class="text-center">{{ __("Fayl") }}</th>
+                          <th class="text-center">{{ __("Topshirish muddati") }}</th>
+                          <th class="text-center">{{ __("Ball") }}</th>
+                          <th class="text-center">{{ __("Vazifa yuklash") }}</th>
                   
                         </tr>
                       </thead>
@@ -165,7 +165,7 @@
                           @if ($task->file)
                             <td class="text-center"><a class="btn btn-primary" href="{{ asset('storage/' . $task->file)}}" download>{{ $task->file_name}}</a></td>
                           @else
-                            <td class="text-center">Fayl mavjud emas</td>
+                            <td class="text-center">{{ __("Fayl mavjud emas") }}</td>
                           @endif
                           <td class="text-center">{{ \Carbon\Carbon::parse($task->deadline)->format('d.m.Y')}}</td>
                           <td class="text-center">{{ $task->task_answer->rating->score ?? '0'}}/{{ $task->score}}</td>                       
@@ -190,7 +190,7 @@
                               
                                 @endif
                             @else
-                              <button class="btn btn-danger mb-2">Muddati o'tib ketgan</button>
+                              <button class="btn btn-danger mb-2">{{ __("Muddati o'tib ketgan") }}</button>
                             @endif
                           @endif
                             </td>  
@@ -219,21 +219,7 @@
         </div>
         
 
-<div class="modal fade" id="updateGroupModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal1-title">Dars jadvalini tahrirlash</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      
-       
-      
-
-    </div>
-  </div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>

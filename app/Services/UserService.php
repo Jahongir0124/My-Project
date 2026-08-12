@@ -4,10 +4,14 @@
 
 namespace app\Services;
 
+use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Testing\Fluent\Concerns\Has;
+use Illuminate\Validation\ValidationException;
 
 
 
@@ -22,7 +26,39 @@ class UserService
         $path = $image->store('user-image', 'public');
         return $path;
     }
-    public function update($data)
+
+
+    public function changeImage(array $data, User $user)
+    {
+        $path = $this->imageSave($data['image']);
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['image' => $path]);
+    }
+    public function changePassword(array $data, User $user)
+    {
+        if (Hash::check($data['password'], $user->password))
+            {
+                $user->update([
+                    'password' => Hash::make($data['new_password'])
+                ]);
+            }
+
+        else 
+            {
+                throw ValidationException::withMessages([
+                    'password' => 
+                        'Current password incorrect!'
+                ]);
+            }
+    }
+    public function changeLanguage(array $data, User $user)
+    {
+        $user->update([
+            'lang' => $data['lang']
+        ]);
+    }
+    public function update($data, User $user)
     {
         $dataSend = $data->validate([
             "image" => "nullable|file|mimes:jpg,jpeg,png|max:10240",

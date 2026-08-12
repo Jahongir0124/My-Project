@@ -227,7 +227,7 @@
                         <!-- Chap tomonda: Savol raqami -->
                         <div>
                             <span class="badge bg-light text-dark border px-3 py-2 fw-semibold" id="questionCounter">
-                                Savol: 1 / 5
+                                {{ __("Savol") }}: 1 / 5
                             </span>
                         </div>
 
@@ -258,8 +258,8 @@
                     <!-- Pastki Boshqaruv Tugmalari -->
                     <div class="d-flex justify-content-between align-items-center mt-4">
                         <button class="nav-btn" id="prevBtn" onclick="changeQuestion(-1)"><i
-                                class="fa-solid fa-arrow-left me-2"></i>Oldingi</button>
-                        <button class="nav-btn" id="nextBtn" onclick="changeQuestion(1)">Keyingi<i
+                                class="fa-solid fa-arrow-left me-2"></i>{{ __("Oldingi") }}</button>
+                        <button class="nav-btn" id="nextBtn" onclick="changeQuestion(1)">{{ __("Keyingi") }}<i
                                 class="fa-solid fa-arrow-right ms-2"></i></button>
                     </div>
 

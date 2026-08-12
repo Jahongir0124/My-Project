@@ -60,6 +60,7 @@
 
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="/admin-assests/adminlte.css" />
+     <link rel="stylesheet" href="/profile/profile.css" />
 
 
     <!--end::Required Plugin(AdminLTE)-->
@@ -146,7 +147,7 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  src="./assets/img/user2-160x160.jpg"
+                  src="{{ auth()->user()->avatar_url }}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
@@ -156,7 +157,7 @@
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    src="./assets/img/user2-160x160.jpg"
+                    src="{{ auth()->user()->avatar_url }}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />
@@ -179,9 +180,9 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <form action="{{ route('logout') }}" method="POST">
-                  <a href="#" class="btn btn-outline-secondary">Profile</a>
+                  <a href="{{ route('teacher.profile') }}" class="btn btn-outline-secondary">{{ __("Sozlamalar") }}</a>
                   @csrf
-                  <button type="submit" class="btn btn-outline-danger float-end">Tizimdan chiqish </button>
+                  <button type="submit" class="btn btn-outline-danger float-end">{{ __("Tizimdan chiqish")  }}</button>
                  </form>
                 </li>
                 <!--end::Menu Footer-->

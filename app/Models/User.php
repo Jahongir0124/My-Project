@@ -65,4 +65,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function getAvatarUrlAttribute()
+    {
+        return !empty($this->profile?->image)
+            ? asset('storage/' . $this->profile->image)
+            : asset('assets/img/avatar5.png');
+    }
 }

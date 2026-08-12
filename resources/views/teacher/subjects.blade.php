@@ -20,8 +20,8 @@
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Fanlar ro'yxati</li>
+                  <li class="breadcrumb-item"><a href="#">{{ __("Dashboard") }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ __("Fanlar") }}</li>
                 </ol>
               </div>
             </div>
@@ -50,11 +50,11 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Fan nomi</th>
-                          <th class="text-center">Guruh</th>
-                          <th class="text-center">Semester</th>
-                          <th class="text-center">Vazifalar</th>      
-                          <th class="text-center">Vazifalar qo'shish</th>
+                          <th class="text-center">{{ __("Fan nomi") }}</th>
+                          <th class="text-center">{{ __("Guruh") }}</th>
+                          <th class="text-center">{{ __("Semester") }}</th>
+                          <th class="text-center">{{ __("Vazifalar") }}</th>      
+                          <th class="text-center">{{ __("Vazifalar qo'shish") }}</th>
                   
                         </tr>
                       </thead>
@@ -88,7 +88,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal1-title">Vazifa qo'shish</h5>
+        <h5 class="modal1-title">{{ __("Vazifa qo'shish") }}</h5>
         <button id="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       
@@ -99,15 +99,15 @@
         <div class="modal-body">
             <input id="courseId" type="hidden" name="course_id">
           <div class="mb-3">
-            <label>Vazifa nomi</label>
+            <label>{{ __("Vazifa nomi") }}</label>
             <input  type="text" name="name"  class="form-control" required>
           </div>
           <div class="mb-3">
-            <label>Topshirish muddati</label>
+            <label>{{ __("Topshirish muddati") }}</label>
             <input  type="date" name="deadline"  class="form-control" required>
           </div>
           <div class="mb-3">
-            <label>Ball</label>
+            <label>{{ __("Ball") }}</label>
             <input  type="number" min="0" name="score"  class="form-control">
           </div>
           @error('score')
@@ -116,14 +116,14 @@
             </div>
           @enderror
            <div class="mb-3">
-            <label>Fayli</label>
+            <label>{{ __("Fayl") }}</label>
             <input  type="file" name="file" class="form-control">
           </div>
 
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Saqlash</button>
+          <button type="submit" class="btn btn-primary">{{ __("Saqlash") }}</button>
         </div>
 
       </form>

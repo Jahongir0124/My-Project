@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\ChangeImageRequest;
+use App\Http\Requests\User\ChanngePasswordRequest;
 use App\Models\Course;
+use App\Models\User;
 use App\Services\DayService;
 use App\Services\ExamService;
 use App\Services\ScheduleService;
@@ -11,6 +14,7 @@ use App\Services\StudentService;
 use App\Services\SemesterService;
 use App\Services\TaskService;
 use App\Services\GroupService;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
@@ -24,7 +28,8 @@ class StudentController extends Controller
         protected readonly GroupService $groupService,
         protected readonly DayService $dayService,
         protected readonly StudentService $studentService,
-        protected readonly ExamService $examService
+        protected readonly ExamService $examService,
+        protected readonly UserService $userService
 
     ) {}
 
@@ -86,11 +91,40 @@ class StudentController extends Controller
     {
         $exams = $this->examService->examsByStudent();
 
-      
+
         return view('student-views.exams', [
             'exams' => $exams
         ]);
-    } 
+    }
 
-    
+    public function profile()
+    {
+        return view('student-views.profile', ['user' => Auth::user()]);
+    }
+
+    public function changePassword(
+        ChanngePasswordRequest $request
+        )
+    {
+        $this->userService->changePassword($request->validated(), Auth::user());
+        return redirect()->route('student.dashboard');
+    }
+
+    public function changeLanguage(Request $request)
+    {
+        $data = $request->validate([
+            'lang' => ['required', 'string']
+        ]);
+
+        $this->userService->changeLanguage($data, Auth::user());
+        return redirect()->route('student.dashboard');
+    }
+
+    public function changeImage(
+        ChangeImageRequest $request
+    )
+    {
+        $this->userService->changeImage($request->validated(), Auth::user());
+        return redirect()->route('student.dashboard');
+    }
 }

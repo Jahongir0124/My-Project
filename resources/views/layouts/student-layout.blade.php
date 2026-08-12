@@ -60,6 +60,7 @@
 
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="/admin-assests/adminlte.css" />
+    <link rel="stylesheet" href="/profile/profile.css" />
 
 
     <!--end::Required Plugin(AdminLTE)-->
@@ -143,7 +144,7 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  src="{{ asset('assets/img/user2-160x160.jpg') }}"
+                  src="{{ auth()->user()->avatar_url }}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
@@ -153,7 +154,7 @@
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    src="{{ asset('assets/img/user2-160x160.jpg') }}"
+                    src="{{ auth()->user()->avatar_url }}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />
@@ -176,7 +177,7 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <form action="{{ route('logout') }}" method="POST">
-                  <a href="#" class="btn btn-outline-secondary">Sozlamalar</a>
+                  <a href="{{ route('student.profile') }}" class="btn btn-outline-secondary">{{ __("Sozlamalar") }}</a>
                   @csrf
                   <button type="submit" class="btn btn-outline-danger float-end">Tizimdan chiqish </button>
                  </form>
@@ -226,38 +227,38 @@
                 <li class="nav-item">
                 <a  href="{{ route('student.dashboard') }}" class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}">
                   <i class="nav-icon bi-speedometer"></i>
-                  <p>Dashboard</p>
+                  <p>{{ __("Dashboard") }}</p>
                 </a>
               </li>
                <li class="nav-item">
                 <a href="{{ route('student.subject.select') }}" class="nav-link {{ request()->routeIs('student.subject.select') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-box-seam"></i>
-                  <p>Fan Tanlovi</p>
+                  <p>{{ __("Fan tanlovi") }}</p>
                 </a>
               </li>
                <li class="nav-item">
                 <a href="{{ route('student.subjects') }}" class="nav-link {{ request()->routeIs('admin.semester.index') ? 'active' : '' }}">
                   <i class="nav-icon  bi bi-clock"></i>
-                  <p>Fanlar</p>
+                  <p>{{ __("Fanlar") }}</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('student.schedule.index') }}" class="nav-link {{ request()->routeIs('student.schedule.index') ? 'active' : '' }}">
                   <i class="nav-icon bi bi-table"></i>
-                  <p>Dars jadvali</p>
+                  <p>{{ __("Dars jadvali") }}</p>
                 </a>
               </li>
               
                <li class="nav-item">
                 <a href="{{ route('student.exams') }}" class="nav-link {{ request()->routeIs('student.exams') ? 'active': ''}}">
                   <i class="nav-icon bi bi-clipboard"></i>
-                  <p>Imtixonlar</p>
+                  <p>{{ __("Imtixonlar") }}</p>
                 </a>
               </li>
                <li class="nav-item">
                 <a href="#" class="nav-link {{ request()->routeIs('admin.courses.index') ? 'active': ''}}">
                   <i class="nav-icon bi bi-clipboard"></i>
-                  <p>Ma'lumot</p>
+                  <p>{{ __("Ma'lumot") }}</p>
                 </a>
               </li>
             <!--end::Sidebar Menu-->

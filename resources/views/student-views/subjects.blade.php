@@ -4,12 +4,6 @@
 @section('title', 'Dars jadvali')
 @section('content')
 
-
-
-
-
-
- 
   <div class="app-content-header">
           <!--begin::Container-->
         
@@ -28,8 +22,8 @@
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">O'qituvchilar</li>
+                  <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __("Dashboard") }}</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ __("O'qituvchilar") }}</li>
                 </ol>
               </div>
             </div>
@@ -65,10 +59,10 @@
                       <thead>
                         <tr>
                           <th class="text-center"> #</th>
-                          <th class="text-center">Nomi</th>
-                          <th class="text-center">Davomat</th>
-                          <th class="text-center">O'qituvchi</th>
-                          <th class="text-center">Vazifalar</th>
+                          <th class="text-center">{{ __("Nomi") }}</th>
+                          <th class="text-center">{{ __("Davomat") }}</th>
+                          <th class="text-center">{{ __("O'qituvchi") }}</th>
+                          <th class="text-center">{{ __("Vazifalar") }}</th>
                   
                         </tr>
                       </thead>
@@ -81,7 +75,7 @@
                           <td class="text-center"><a href="" class="btn btn-primary mb-2 " >{{ $course->count_attendance ?? 0}} </a></td>
                           <td class="text-center">{{ $course->teacher->full_name}}</td>                       
                             <td class="text-center">
-                                <a href="{{ route('student.subject.detail', ['course' => $course]) }}"   class="btn btn-primary mb-2">Batafsil</a>
+                                <a href="{{ route('student.subject.detail', ['course' => $course]) }}"   class="btn btn-primary mb-2">{{ __("Batafsil") }}</a>
                             </td>  
                                    
                         </tr>

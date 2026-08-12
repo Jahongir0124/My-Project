@@ -1,17 +1,18 @@
-@extends('layouts.admin-layout')
+@extends('layouts.student-layout')
 
 @section('title', 'Profil sozlamalari')
 @section('content')
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome Ikonkalari -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-5">
-            
+
             <div class="card edu-profile-card">
-                
-                <form action="{{ route('admin.profile.image') }}" method="POST" id="eduSettingsForm"
+
+
+                <form action="{{ route('student.profile.image') }}" method="POST" id="eduSettingsForm"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -37,7 +38,7 @@
                 </form>
                 <br>
 
-                <form action="{{ route('admin.profile.language') }}" id="eduSettingsForm" method="POST">
+                <form action="{{ route('student.profile.language') }}" id="eduSettingsForm" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="edu-section-title">
@@ -58,7 +59,7 @@
                 </form>
 
                 <div class="edu-divider"></div>
-                <form action="{{ route('admin.profile.password') }} " method="POST">
+                <form action="{{ route('student.profile.password') }} " method="POST">
                     @method('PUT')
                     @csrf
                     <div class="edu-section-title">
@@ -97,25 +98,25 @@
     </div>
 
 
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    // Rasmni sahifani yangilamasdan silliq o'zgartirish
-    document.addEventListener("DOMContentLoaded", function() {
-        const avatarInput = document.getElementById('avatarInput');
-        const avatarPreview = document.getElementById('avatarPreview');
+    <script>
+        // Rasmni sahifani yangilamasdan silliq o'zgartirish
+        document.addEventListener("DOMContentLoaded", function() {
+            const avatarInput = document.getElementById('avatarInput');
+            const avatarPreview = document.getElementById('avatarPreview');
 
-        avatarInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    avatarPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
+            avatarInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        avatarPreview.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
-    });
-</script>
+    </script>
 @endsection

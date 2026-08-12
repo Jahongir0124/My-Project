@@ -10,12 +10,12 @@
         
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
             <div>
-                <h2 class="fw-bold text-dark mb-1"><i class="fa-solid fa-calendar-days text-primary me-2"></i>Dars Jadvali</h2>
-                <p class="text-muted mb-0">Guruh: <span class="badge bg-primary px-3 py-2 fs-6">{{ $group_semester->group->name }} Guruhi</span> | Semestr: {{ $group_semester->semester->name}}</p>
+                <h2 class="fw-bold text-dark mb-1"><i class="fa-solid fa-calendar-days text-primary me-2"></i>{{ __("Dars Jadvali") }}</h2>
+                <p class="text-muted mb-0">{{ __("Guruh") }}: <span class="badge bg-primary px-3 py-2 fs-6">{{ $group_semester->group->name }} </span> |{{ __("Semestr") }}: {{ $group_semester->semester->name}}</p>
             </div>
             <div>
                 <button class="btn btn-outline-primary me-2" >
-                    <i class="fa-solid fa-print me-1"></i> Yuklab olish
+                    <i class="fa-solid fa-print me-1"></i> {{ __("Yuklab olish") }}
                 </button>
             </div>
         </div>
@@ -26,9 +26,9 @@
                     <table class="table table-bordered table-schedule mb-0 align-middle">
                         <thead>
                             <tr>
-                                <th>Para</th>
+                                <th>{{ __("Para") }}</th>
                                 @foreach ($days as $day) 
-                                    <th id="day-1">{{ $day->name}}</th>
+                                    <th id="day-1">{{ __($day->name)}}</th>
                                 @endforeach
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                             </div>
                                             @else
                                              <div class="subject-card bg-empty text-center py-4">
-                                                <span class="text-muted">Dars yo'q</span>
+                                                <span class="text-muted">{{ __("Dars yo'q") }}</span>
                                             </div>
                                             @endif
                                         </td>

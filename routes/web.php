@@ -76,12 +76,14 @@ Route::middleware(['auth', 'lang', 'role:admin'])->prefix('admin')->name('admin.
     Route::post('shift/destroy/{shift}', [ShiftController::class, 'destroy'])->name('shift.destroy');
     Route::get('pair/json', [ShiftController::class, 'shift_pairs'])->name('pair.json');
     Route::get('profile/', [AdminController::class, 'profile'])->name('profile.settings');
-    Route::put('profile/update', [AdminController::class, 'editProfile'])->name('profile.edit');
+    Route::put('profile/image/change', [AdminController::class, 'changeImage'])->name('profile.image');
+    Route::put('profile/language/change', [AdminController::class, 'changeLanguage'])->name('profile.language');
+    Route::put('profile/password/change', [AdminController::class, 'changePassword'])->name('profile.password');
     });
 
 //StudentController Routes
 
-Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')->group(function() {
+Route::middleware(['auth', 'lang', 'role:student'])->prefix('student')->name('student.')->group(function() {
 
 
     Route::get('/', [StudentController::class, 'index'])->name('dashboard');
@@ -96,11 +98,16 @@ Route::middleware(['auth', 'role:student'])->prefix('student')->name('student.')
     Route::get('exam/begin/{exam}', [ExamController::class, 'beginExam'])->name('exam.begin');
     Route::post('exam/check', [ExamController::class, 'checkExam'])->name('exam.check');
     Route::get('exam/result/{attemp_id}', [ExamAttempController::class, 'resultExam'])->name('exam.result');
-});
+    Route::get('profile/', [StudentController::class, 'profile'])->name('profile');
+    Route::put('profile/password/change', [StudentController::class, 'changePassword'])->name('profile.password');
+    Route::put('profile/language/change', [StudentController::class, 'changeLanguage'])->name('profile.language');
+    Route::put('profile/image/change', [StudentController::class, 'changeImage'])->name('profile.image');
+
+    });
 
 //TeacherController Routes
 
-Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function() {
+Route::middleware(['auth', 'lang', 'role:teacher'])->prefix('teacher')->name('teacher.')->group(function() {
     
     Route::get('/', [TeacherController::class, 'index'])->name('index');
     Route::get('subjects/', [TeacherController::class, 'subjects'])->name('subjects');
@@ -124,5 +131,9 @@ Route::middleware(['auth', 'role:teacher'])->prefix('teacher')->name('teacher.')
     Route::get('questions/{exam}', [ExamController::class, 'getQuestions'])->name('questions');
     Route::post('question/destroy/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
     Route::post('question/import', [QuestionController::class, 'import'])->name('question.import');
+    Route::get('profile/', [TeacherController::class, 'profile'])->name('profile');
+    Route::put('profile/password/change', [TeacherController::class, 'changePassword'])->name('profile.password');
+    Route::put('profile/language/change', [TeacherController::class, 'changeLanguage'])->name('profile.language');
+    Route::put('profile/image/change', [TeacherController::class, 'changeImage'])->name('profile.image');   
     
 });

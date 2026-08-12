@@ -20,9 +20,9 @@
                   <input type="hidden" id="groupSemesterId" name="group_semester_id" value="{{ $group_semester->id }}">
                 
                   <div class="col-md-6">
-                        <label for="validationCustom04" class="form-label">Fan tanlang</label>
+                        <label for="validationCustom04" class="form-label">{{ __("Fan tanlang") }}</label>
                             <select id="course_id" name="course_id" class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Tanlang...</option>
+                                <option selected disabled value="">{{ __("Tanlang") }}...</option>
                                 @foreach ($group_semester->group->courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->name}}</option>
                                 @endforeach
@@ -30,23 +30,23 @@
                   </div>
                  
                    <div class="col-md-6">
-                        <label for="validationCustom04" class="form-label">Kunlar</label>
+                        <label for="validationCustom04" class="form-label">{{ __("Kunlar") }}</label>
                             <select id="days" name="day_id" class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Tanlang...</option>
+                                <option selected disabled value="">{{ __("Tanlang") }}...</option>
                                 @foreach ($days as $day)
                                     <option value="{{ $day->id }}">{{ __($day->name)}}</option>
                                 @endforeach
                             </select>
                   </div>
                    <div class="col-md-6">
-                        <label for="validationCustom04" class="form-label">Juftliklar</label>
+                        <label for="validationCustom04" class="form-label">{{ __("Juftliklar") }}</label>
                             <select id="pairs" name="pair_id" class="form-select" id="validationCustom04" required>
-                                <option selected disabled value="">Tanlang...</option>     
+                                <option selected disabled value="">{{ __("Tanlang") }}...</option>     
                             </select>
                   </div>
               </div>
               <div class="modal-footer">
-                  <button type="submit"  class="btn btn-primary">Saqlash</button>
+                  <button type="submit"  class="btn btn-primary">{{ __("Saqlash") }}</button>
               </div>
                </div>
 </form>

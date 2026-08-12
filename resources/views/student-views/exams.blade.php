@@ -20,8 +20,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Imtixonlar</li>
+                        <li class="breadcrumb-item"><a href="{{ route('student.dashboard') }}">{{ __("Dashboard") }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __("Imtixonlar") }}</li>
                     </ol>
                 </div>
             </div>
@@ -47,12 +47,12 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center"> #</th>
-                                        <th class="text-center">Imtixon nomi</th>
-                                        <th class="text-center">Imtixon turi</th>
-                                        <th class="text-center">Fan nomi</th>
-                                        <th class="text-center">Vaqti</th>
-                                        <th class="text-center">Ball</th>
-                                        <th class="text-center">Boshlash</th>
+                                        <th class="text-center">{{ __("Imtixon nomi") }}</th>
+                                        <th class="text-center">{{ __("Imtixon turi") }}</th>
+                                        <th class="text-center">{{ __("Fan nomi") }}</th>
+                                        <th class="text-center">{{ __("Vaqti") }}</th>
+                                        <th class="text-center">{{ __("Ball") }}</th>
+                                        <th class="text-center">{{ __("Boshlash") }}</th>
 
                                     </tr>
                                 </thead>
@@ -81,7 +81,7 @@
                                                 <td class="text-center">
                                                     <a href="{{ route('student.exam.result', ['attemp_id' => $exam->examAttempts[0]->id]) }}"
                                                         class="btn btn-primary mb-2 ">
-                                                        Natijani ko'rish</a>
+                                                        {{ __("Natijani ko'rish") }}</a>
 
                                                 </td>
                                             @endif
